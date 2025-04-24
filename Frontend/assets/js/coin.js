@@ -175,21 +175,21 @@ function displayCoinInfo(coin) {
                     <p class="str">${coin.tickers[0].market.name.replace('Exchange', '')}</p>
                     <div class="links">
                         <a href="${coin.tickers[0].trade_url}">Trade</a>
-                        <p style="background-color: ${coin.tickers[0].trust_score}">Trusted?</p>
+
                     </div>
                 </div>
                 <div class="item">
                     <p class="str">${coin.tickers[1].market.name.replace('Exchange', '')}</p>
                     <div class="links">
                         <a href="${coin.tickers[1].trade_url}">Trade</a>
-                        <p style="background-color: ${coin.tickers[1].trust_score}">Trusted?</p>
+
                     </div>
                 </div>
                 <div class="item">
                     <p class="str">${coin.tickers[2].market.name.replace('Exchange', '')}</p>
                     <div class="links">
                         <a href="${coin.tickers[2].trade_url}">Trade</a>
-                        <p style="background-color: ${coin.tickers[2].trust_score}">Trusted?</p>
+
                     </div>
                 </div>
                 </div>

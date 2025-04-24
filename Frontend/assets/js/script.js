@@ -107,7 +107,7 @@ function displayTrendCoins(coins) {
             <td>$${coinData.data.total_volume}</td>
             <td class="${coinData.data.price_change_percentage_24h.usd >= 0 ? 'green' : 'red'}">${coinData.data.price_change_percentage_24h.usd.toFixed(2)}%</td>
         `;
-        row.onclick = () => window.location.href = `../../pages/coin.html?coin=${coinData.id}`;
+        row.onclick = () => window.location.href = `pages/coin.html?coin=${coinData.id}`;
         table.appendChild(row);
     });
     coinsList.appendChild(table);
@@ -156,7 +156,7 @@ function displayAssets(data) {
             sparkline: asset.sparkline_in_7d.price,
             color: asset.sparkline_in_7d.price[0] <= asset.sparkline_in_7d.price[asset.sparkline_in_7d.price.length - 1] ? 'green' : 'red'
         });
-        row.onclick = () => window.location.href = `../../pages/coin.html?coin=${asset.id}`;
+        row.onclick = () => window.location.href = `pages/coin.html?coin=${asset.id}`;
     });
     cryptoList.appendChild(table);
 

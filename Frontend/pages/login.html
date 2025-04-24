@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoWeb - Login</title>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <link rel="stylesheet" href="..\assets\css\login_style.css">
+  <link rel="stylesheet" href="..\assets\css\style.css">
+
+</head>
+
+<body>
+
+  <!-- Cabecera unificada -->
+  <div class="global">
+    <p>Coins: <b id="coins-count">N/A</b></p>
+    <p>Exchanges: <b id="exchanges-count">N/A</b></p>
+    <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i
+                    class="ri-arrow-down-s-fill"></i></span></span></p>
+    <p>24H Vol: <b id="volume">N/A</b></p>
+    <p>Dominance: <b id="dominance">BTC N/A% - ETH N/A%</b></p>
+    <i id="theme-toggle" class="uil uil-moon theme-toggle"></i>
+</div>
+
+
+  <div class="main-container">
+    <div class="form-wrapper">
+        <div class="tab-switch">
+            <span>Login</span>
+            <span>Registro</span>
+        </div>
+
+      <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+      <label for="reg-log"></label>
+
+      <div class="card-3d-wrap">
+        <div class="card-3d-wrapper">
+
+          <!-- Login -->
+          <div class="card-front">
+            <div class="center-wrap">
+              <h4>Iniciar Sesión</h4>
+              <div class="form-group">
+                <button class="google-button">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                    Iniciar sesión con Google
+                  </button>
+                </div>
+              <div class="form-group">
+                <input type="email" class="form-style" placeholder="Email">
+                <i class="input-icon uil uil-at"></i>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-style" placeholder="Contraseña">
+                <i class="input-icon uil uil-lock-alt"></i>
+              </div>
+              <a href="#" class="btn">Entrar</a>
+              <p><a href="#" class="link">¿Olvidaste tu contraseña?</a></p>
+            </div>
+          </div>
+
+          <!-- Registro -->
+          <div class="card-back">
+            <div class="center-wrap">
+              <h4>Registrarse</h4>
+              <div class="form-group">
+                <input type="text" class="form-style" placeholder="Nombre Completo">
+                <i class="input-icon uil uil-user"></i>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-style" placeholder="Email">
+                <i class="input-icon uil uil-at"></i>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-style" placeholder="Contraseña">
+                <i class="input-icon uil uil-lock-alt"></i>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-style" placeholder="Repite la contraseña">
+                <i class="input-icon uil uil-lock-alt"></i>
+              </div>
+              <a href="#" class="btn">Crear Cuenta</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="../assets/js/login.js"></script>
+  <script src="../assets/js/global.js"></script>
+</body>
+</html>
