@@ -27,6 +27,8 @@
 
     --links-color: #1565C0;
 
+    --logo-url: url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/images/light-logo.gif');
+
 }
 
 /*———————————————————————————————————————*/
@@ -46,6 +48,8 @@
     --color-allwayswhite: #ffffff;
 
     --links-color: #1565C0;
+
+    --logo-url: url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/images/dark-logo.gif');
 }
 
 /* login_Style.css */
@@ -58,7 +62,6 @@
     --color-black: #000;
     --border-color: #1D1F22;
     --text-secondary: #bebebe;
-    --logchart-dark-yellow:#ca0cc1;
 
     --links-color: #1565C0;
 }
@@ -209,12 +212,14 @@ nav .left-section,
 nav .right-section {
     display: flex;
     align-items: center;
-    gap: 40px;
 }
 
 nav .left-section .logo {
-    font-weight: 600;
-    font-size: 26px;
+    height: 60px;
+    width: 100px; 
+    background-image: var(--logo-url);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 nav .left-section .nav-links {
@@ -610,7 +615,8 @@ footer .social-icons a i,
 .coin-container .left-section .coin-info .logo {
     display: flex;
     align-items: center;
-    gap: 5px;
+    align-content: center;
+    gap: px;
     margin-bottom: 30px;
 }
 
@@ -960,7 +966,8 @@ h6 span {
 }
 
 .google-button:hover {
-  background-color: #bfe3ec;
+    background-color: var(--links-color);
+  color: var(--color-allwayswhite);
 }
 
 .google-button img {
