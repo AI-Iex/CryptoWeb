@@ -219,3 +219,17 @@ function scrollToTop() {
     // Chrome, Firefox, IE and Opera
     document.documentElement.scrollTop = 0;
 }
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const userMenu = document.getElementById("userMenu");
+    if (userMenu) {
+      userMenu.addEventListener("click", function () {
+        if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname === "/index") {
+          window.location.href = "pages/login.html";
+        } else {
+          window.location.href = "login.html";
+        }
+      });
+    }
+  });
