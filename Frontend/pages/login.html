@@ -90,14 +90,14 @@
                                     </button>
                                     </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-style" placeholder="Email">
+                                    <input type="email" class="form-style" placeholder="Email" id="login_email">
                                     <i class="input-icon uil uil-at"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-style" placeholder="Contraseña">
+                                    <input type="password" class="form-style" placeholder="Contraseña" id="login_password">
                                     <i class="input-icon uil uil-lock-alt"></i>
                                 </div>
-                                <a href="#" class="btn">Entrar</a>
+                                <a href="#" id="Login_btn" class="btn">Entrar</a>
                                 <div class="form-group">
                                     <p><a href="#" class="link">¿Olvidaste tu contraseña?</a></p>
                                 </div>
@@ -109,22 +109,22 @@
                                 <div class="center-wrap">
                                 <h4>Registrarse</h4>
                                 <div class="form-group">
-                                    <input type="text" class="form-style" placeholder="Nombre Completo">
+                                    <input type="text" class="form-style" placeholder="Nombre Completo" id="register_name">
                                     <i class="input-icon uil uil-user"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-style" placeholder="Email">
+                                    <input type="email" class="form-style" placeholder="Email" id="register_email">
                                     <i class="input-icon uil uil-at"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-style" placeholder="Contraseña">
+                                    <input type="password" class="form-style" placeholder="Contraseña" id="register_password">
                                     <i class="input-icon uil uil-lock-alt"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-style" placeholder="Repite la contraseña">
+                                    <input type="password" class="form-style" placeholder="Repite la contraseña" id="register_confirm">
                                     <i class="input-icon uil uil-lock-alt"></i>
                                 </div >
-                                <a href="#" class="btn">Crear Cuenta</a>
+                                <a href="#" id="Register_btn" class="btn">Crear Cuenta</a>
                                 </div>
                             </div>
                         </div>
@@ -143,6 +143,7 @@
             </div>
         </footer>
 
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="../assets/js/login.js"></script>
         <script src="../assets/js/global.js"></script>
     </body>

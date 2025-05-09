@@ -8,9 +8,8 @@ from Backend.Models.user import User
 from Backend.Core.security import get_password_hash, verify_password
 from sqlalchemy.orm import Session
 from typing import Optional
-import datetime
 import logging
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from sqlalchemy.exc import SQLAlchemyError
 from Backend.Models.user import User
 from Backend.Schemas.user import UserCreate
@@ -45,40 +44,65 @@ def create_new_user_service(db, user: UserCreate):
         logger.error(f"Unexpected error: {str(e)}")
         raise HTTPException(status_code=500, detail="Another server error")
     
-def login_user_service(db: Session, email: str, password: str) -> Optional[User]:
+def login_user_service(db: Session, email: str, password: str) -> User:
     user = get_user_by_email(db, email)
-    if not user or not verify_password(password, user.password_hash):
-        return None
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="There is not user associated with this email")
+    if not verify_password(password, user.password_hash):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password")
 
-    # Actualizar last_login
     update_last_login_service(db, user.id)
     return user
 
-def get_all_users_service(db:Session) ->Optional[list[UserRead]]:
-    return get_all_users(db=db)
+def get_all_users_service(db: Session) -> list[UserRead]:
+    users = get_all_users(db=db)
+    if not users:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No users registered")
+    return users
 
-def get_user_by_email_service(db: Session, email: str) -> Optional[User]:
-    # Llamamos al repositorio para obtener el usuario por correo
-    return get_user_by_email(db=db, email=email)
 
-def get_user_by_id_service(db: Session, user_id: int) -> Optional[User]:
-    # Llamamos al repositorio para obtener el usuario por ID
-    return get_user_by_id(db=db, user_id=user_id)
+def get_user_by_email_service(db: Session, email: str) -> User:
+    user = get_user_by_email(db=db, email=email)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found with this email")
+    return user
 
-def update_user_service(db: Session, user_id: int, user_data: UserUpdate) -> Optional[User]:
-    # Llamamos al repositorio para actualizar un usuario
-    return update_user(db=db, user_id=user_id, user_data=user_data)
+def get_user_by_id_service(db: Session, user_id: int) -> User:
+    user = get_user_by_id(db=db, user_id=user_id)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found with this ID")
+    return user
+
+
+def update_user_service(db: Session, user_id: int, user_data: UserUpdate) -> User:
+    try:
+        updated_user = update_user(db=db, user_id=user_id, user_data=user_data)
+        if not updated_user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return updated_user
+    except SQLAlchemyError as e:
+        logger.error(f"Database error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Database error")
 
 def delete_user_service(db: Session, user_id: int):
-    # Llamamos al repositorio para eliminar un usuario
-    delete_user(db=db, user_id=user_id)
+    try:
+        user = get_user_by_id(db=db, user_id=user_id)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        deleted = delete_user(db=db, user_id=user_id)
+        
+    except SQLAlchemyError as e:
+        logger.error(f"Database error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Database error")
 
-def update_last_login_service(db: Session, user_id: int) -> Optional[User]:
-    # Llamamos al repositorio para actualizar el último inicio de sesión
-    return update_user_last_login(db=db, user_id=user_id)
+def update_last_login_service(db: Session, user_id: int) -> User:
+    user = update_user_last_login(db=db, user_id=user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
 
-def verify_user_password_service(db: Session, email: str, password: str) -> Optional[User]:
+def verify_user_password_service(db: Session, email: str, password: str) -> User:
     user = get_user_by_email_service(db, email)
-    if user and verify_password(password, user.password_hash):
-        return user
-    return None
+    if not user or not verify_password(password, user.password_hash):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    return user

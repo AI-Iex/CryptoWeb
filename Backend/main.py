@@ -26,11 +26,12 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Lista de dominios permitidos
-    allow_credentials=True,  # Para cookies/tokens
-    allow_methods=["*"],     # Métodos HTTP permitidos (GET, POST, etc.)
-    allow_headers=["*"],     # Cabeceras permitidas
+    allow_origins=["*"],    # permite cualquier origen (incluido null/file://)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 # Health Check (Endpoint básico de prueba)
 @app.get("/")
