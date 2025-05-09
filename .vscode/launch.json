@@ -1,15 +1,20 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "name": "FastAPI",
+            "type": "debugpy",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}"
+            "program": "C:/Users/Usuario/AppData/Local/Programs/Python/Python312/Scripts/uvicorn.exe",  // Cambié esto a uvicorn.exe
+            "args": [
+                "Backend.main:app",  // 'main' es el nombre del archivo (sin la extensión .py), 'app' es la instancia de FastAPI
+                "--reload"
+            ],
+            "env": {
+                "PYTHONPATH": "C:/Users/Usuario/Documents/CryptoWeb"  // Directorio raíz del proyecto
+            },
+            "jinja": true
         }
     ]
 }
+

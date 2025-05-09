@@ -2,12 +2,18 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # Virtual environment
 venv/
 .env/
 env/
 .venv/
+
+# Claves SSH o certificados
+*.pem
+*.key
+*.cer
 
 # Environment variables
 .env

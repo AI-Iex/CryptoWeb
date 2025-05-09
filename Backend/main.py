@@ -1,15 +1,20 @@
 from fastapi import FastAPI
+from Backend.Api import auth, users
 from fastapi.middleware.cors import CORSMiddleware
 import os
+
+from Backend.db.session import engine
+from Backend.Models import user  # Asegúrate de importar el modelo para que se cree la tabla
+
+# Crear las tablas si no existen
+user.Base.metadata.create_all(bind=engine)
 
 # Configuración inicial
 app = FastAPI(
     title="CryptoWeb API",
-    description="Backend para gestión de criptomonedas",
+    description="Backend for user management, cryptos and portfolios of CriptoWeb",
     version="0.1.0"
 )
-
-
 
 # CORS (Conectar con tu frontend)
 
@@ -36,7 +41,7 @@ async def root():
         "debug": os.getenv("ENVIRONMENT", "development")
     }
 
-# --- Futuros Endpoints Aquí ---
-# Ejemplo:
-# from api.auth import router as auth_router
-# app.include_router(auth_router, prefix="/auth")
+# Incluir router de auth (Autenticación)
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(users.router, prefix="/users", tags=["users"])
+
