@@ -65,3 +65,6 @@ htmlcov/
 # API Keys / Sensitive data
 secrets.ini
 config_secret.json
+
+Backend/settings.env
+Backend/__pycache__/main.cpython-312.pyc
