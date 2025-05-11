@@ -41,7 +41,8 @@ const widgetConfig2 = {
     "lineType": 0,
     "dateRanges": [
         "1d|15",
-        "1m|30",
+        "1w|30",
+        "1m|60",
         "3m|60",
         "12m|1D",
         "60m|1W",

@@ -205,6 +205,7 @@ window.onscroll = () => {
     scrollFunction();
 }
 
+
 function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         scrollTopBtn.style.display = "flex";
@@ -221,15 +222,62 @@ function scrollToTop() {
 }
 
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const userMenu = document.getElementById("userMenu");
-    if (userMenu) {
-      userMenu.addEventListener("click", function () {
-        if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname === "/index") {
-          window.location.href = "pages/login.html";
-        } else {
-          window.location.href = "login.html";
-        }
-      });
+document.addEventListener("DOMContentLoaded", function () {
+const userMenu = document.getElementById("userMenu");
+if (userMenu) {
+    userMenu.addEventListener("click", function () {
+    if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname === "/index") {
+        window.location.href = "pages/login.html";
+    } else {
+        window.location.href = "login.html";
     }
-  });
+    });
+}
+});
+
+
+  // Login User profile menu
+document.addEventListener('DOMContentLoaded', () => {
+    const userMenu = document.getElementById('userMenu');
+    const authDropdown = document.getElementById('authDropdown');
+    const logoutBtn = document.getElementById('logout-btn');
+    const userAvatar = document.querySelector('.user-avatar');
+
+    // Verificar autenticación
+    function checkAuth() {
+        const token = localStorage.getItem('access_token');
+        if(token) {
+            userMenu.classList.add('hidden');
+            authDropdown.classList.add('visible');
+        } else {
+            userMenu.classList.remove('hidden');
+            authDropdown.classList.remove('visible');
+        }
+    }
+
+    // Logout
+    function handleLogout() {
+        localStorage.removeItem('access_token');
+        checkAuth();
+        window.location.href = 'index.html';
+    }
+
+    // Toggle dropdown
+    userAvatar?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelector('.dropdown-menu').classList.toggle('active');
+    });
+
+    // Cerrar dropdown al hacer click fuera
+    document.addEventListener('click', (e) => {
+        if(!e.target.closest('.auth-dropdown')) {
+            document.querySelector('.dropdown-menu')?.classList.remove('active');
+        }
+    });
+
+    // Evento logout
+    logoutBtn?.addEventListener('click', handleLogout);
+
+    // Verificar estado inicial
+    checkAuth();
+});

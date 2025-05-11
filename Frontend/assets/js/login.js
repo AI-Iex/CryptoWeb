@@ -6,88 +6,155 @@ document.querySelectorAll('.tab-switch span').forEach((tab, index) => {
   });
 });
 
-
 document.addEventListener('DOMContentLoaded', () => {
+    // Crear elementos de error
+    const createErrorElement = (buttonId) => {
+        const button = document.getElementById(buttonId);
+        const error = document.createElement('div');
+        error.className = 'error-message-login';
+        button.parentNode.insertBefore(error, button.nextSibling);
+        return error;
+    };
 
-  // ——————— FUNCIONES ———————
+    // Elementos de error
+    const loginError = createErrorElement('Login_btn');
+    const registerError = createErrorElement('Register_btn');
 
-  async function loginUser(email, password) {
-    try {
-      const response = await axios.post('http://localhost:8000/auth/login', {
-        email,
-        password
-      });
-      localStorage.setItem('access_token', response.data.access_token);
-      alert('Login exitoso!');
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      alert('Credenciales incorrectas o error en el servidor');
+    // Función para mostrar errores
+    const showError = (element, message) => {
+        element.textContent = message;
+        element.style.display = 'block';
+        setTimeout(() => element.style.display = 'none', 8000);
+    };
+
+    // Validación de email
+    const validateEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    // Validación de contraseña
+    const checkPasswordLength = password => password.length >= 6;
+
+    // Estilos temporales de error
+    const applyTempErrorStyle = field => {
+        field.classList.add('form-style-error');
+        setTimeout(() => field.classList.remove('form-style-error'), 8000);
+    };
+
+    // Evento de Login
+    document.getElementById('Login_btn').addEventListener('click', async (e) => {
+        e.preventDefault();
+        const emailField = document.getElementById('login_email');
+        const passField = document.getElementById('login_password');
+        let errors = [];
+
+        if (!validateEmail(emailField.value)) {
+            applyTempErrorStyle(emailField);
+            errors.push('Email inválido');
+        }
+
+        if (!checkPasswordLength(passField.value)) {
+            applyTempErrorStyle(passField);
+            errors.push('La contraseña debe tener mínimo 6 caracteres');
+        }
+
+        if (errors.length > 0) {
+            showError(loginError, errors.join(' • '));
+            return;
+        }
+
+        try {
+            const res = await axios.post('http://localhost:8000/auth/login', {
+                email: emailField.value,
+                password: passField.value
+            });
+            localStorage.setItem('access_token', res.data.access_token);
+            window.location.href = '../index.html';
+        } catch (err) {
+            showError(loginError, 'Credenciales incorrectas');
+            applyTempErrorStyle(emailField);
+            applyTempErrorStyle(passField);
+        }
+    });
+
+  // Evento de Registro
+  document.getElementById('Register_btn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const nameField = document.getElementById('register_name');
+    const emailField = document.getElementById('register_email');
+    const passField = document.getElementById('register_password');
+    const confirmField = document.getElementById('register_confirm');
+
+    // Limpiar errores previos
+    registerError.classList.remove('active');
+    
+    // Validación mejorada
+    let errors = [];
+    
+    if (!nameField.value.trim()) {
+        applyTempErrorStyle(nameField);
+        errors.push('El nombre es obligatorio');
     }
-  }
+    
+    if (!validateEmail(emailField.value)) {
+        applyTempErrorStyle(emailField);
+        errors.push('Formato de email inválido');
+    }
+    
+    if (!checkPasswordLength(passField.value)) {
+        applyTempErrorStyle(passField);
+        errors.push('La contraseña debe tener al menos 6 caracteres');
+    }
+    
+    if (passField.value !== confirmField.value) {
+        applyTempErrorStyle(passField);
+        applyTempErrorStyle(confirmField);
+        errors.push('Las contraseñas no coinciden');
+    }
 
+    if (errors.length > 0) {
+        showError(registerError, errors.join('\n'));
+        return;
+    }
+
+    // Ejecutar registro
+    await registerUser(
+        nameField.value.trim(),
+        emailField.value,
+        passField.value
+    );
+  });
+
+  // Función de registro
   async function registerUser(username, email, password) {
     try {
-      const response = await axios.post('http://localhost:8000/auth/register', {
-        username,
-        email,
-        password
-      });
-      alert('Usuario registrado exitosamente!');
-    } catch (error) {
-       
-      if (error.response) {
-        // El servidor respondió con un error HTTP
-        console.error('Datos de respuesta (error.response.data):', error.response.data);
-        alert('Error en el servidor: ' + JSON.stringify(error.response.data));
-      } else if (error.request) {
-        // La petición salió pero no hubo respuesta
-        console.error('No hubo respuesta del servidor:', error.request);
-        alert('No obtuve respuesta del servidor');
-      } else {
-        // Otro tipo de error (configuración, CORS, etc.)
-        console.error('Error al configurar la petición:', error.message);
-        alert('Error de red o configuración: ' + error.message);
-      }
-  
+        // 1. Registrar usuario
+        const registerResponse = await axios.post('http://localhost:8000/auth/register', {
+            username,
+            email,
+            password
+        });
 
+        // 2. Iniciar sesión automáticamente
+        const loginResponse = await axios.post('http://localhost:8000/auth/login', {
+            email,
+            password
+        });
+
+        // 3. Guardar token y redirigir
+        localStorage.setItem('access_token', loginResponse.data.access_token);
+        window.location.href = '../index.html';
+
+    } catch (error) {
+        // Manejo mejorado de errores
+        const errorMessage = error.response?.data?.message || 'Error en el registro';
+        showError(registerError, errorMessage);
+        
+        // Resaltar campos relevantes según el error
+        if (errorMessage.includes('email')) {
+            applyTempErrorStyle(document.getElementById('register_email'));
+        }
+        if (errorMessage.includes('contraseña')) {
+            applyTempErrorStyle(document.getElementById('register_password'));
+        }
     }
   }
-
-  // ——————— LISTENERS ———————
-
-  // Login
-  const loginBtn = document.getElementById('Login_btn');
-  loginBtn.addEventListener('click', e => {
-    e.preventDefault();
-    const email = document.getElementById('login_email').value;
-    const password = document.getElementById('login_password').value;
-    if (email && password) {
-      loginUser(email, password);
-    } else {
-      alert('Por favor, ingresa todos los campos');
-    }
-  });
-
-  // Registro
-  const registerBtn = document.getElementById('Register_btn');
-  registerBtn.addEventListener('click', e => {
-    e.preventDefault();
-    const name  = document.getElementById('register_name').value;
-    const email = document.getElementById('register_email').value;
-    const pass  = document.getElementById('register_password').value;
-    const confirm = document.getElementById('register_confirm').value;
-
-    if (!name || !email || !pass || !confirm) {
-      return alert('Por favor, ingresa todos los campos');
-    }
-    if (pass !== confirm) {
-      return alert('Las contraseñas no coinciden');
-    }
-    registerUser(name, email, pass);
-  });
-
 });
-
-
-
-

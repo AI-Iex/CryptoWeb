@@ -23,7 +23,9 @@
     --chart-dark-bg: #050505;
     --chart-light-border: #D4D4D4;
     --chart-dark-border: #333;
-    --chart-purple:#d6ba1b;
+    --chart-login-color:#d6ba1b;
+    --chart-login-color-shadow:rgba(0, 0, 0, 0.4);
+    
 
     --links-color: #1565C0;
 
@@ -44,7 +46,8 @@
     --color-black: #000;
     --border-color: #1D1F22;
     --text-secondary: #bebebe;
-    --chart-purple:#ca0cc1;
+    --chart-login-color:#ca0cc1;
+    --chart-login-color-shadow:rgba(196, 20, 158, 0.4);
     --color-allwayswhite: #ffffff;
 
     --links-color: #1565C0;
@@ -262,6 +265,7 @@ nav .right-section > i {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
 
 nav .right-section > i.ri-sun-line {
     transform: rotate(0deg);
@@ -851,7 +855,7 @@ a:hover {
 }
 
 .link:hover {
-  color: var(--chart-purple);
+  color: var(--chart-login-color);
   ;
 }
 
@@ -861,7 +865,7 @@ a:hover {
   text-align: center;
   font-size: 28px;
   font-weight: bold;
-  color: var(--chart-purple);
+  color: var(--chart-login-color);
   margin-top: -20px;
   margin-bottom: 20px;
 }
@@ -929,19 +933,41 @@ h6 span {
   background-color: var(--background-color);
   border: none;
   transition: all 200ms linear;
-  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+  box-shadow: 0 4px 8px 0 var(--chart-login-color-shadow);
 }
 
 .form-style:focus,
-.form-style:active {
-  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+.form-style:active{
+  box-shadow: 0 4px 18px 0 rgb(2, 162, 202);
+}
+
+.form-style:focus ~ .input-icon,
+.form-style:active ~ .input-icon {
+  color: rgb(2, 162, 202); /* Mismo color que la sombra */
+}
+
+.form-style-error{
+  padding: 13px 20px;
+  padding-left: 55px;
+  height: 48px;
+  width: 100%;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+  outline: none;
+  color: var(--color-white);
+  background-color: var(--background-color);
+  border: none;
+  transition: all 200ms linear;
+  box-shadow: 0 4px 18px 0 rgb(255, 0, 0);
 }
 
 .google-button {
   width: 100%;
   background-color: white;
   color: #444;
-  border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -973,7 +999,7 @@ h6 span {
   height: 48px;
   font-size: 24px;
   line-height: 48px;
-  color: var(--chart-purple);
+  color: var(--chart-login-color);
   transition: all 200ms linear;
 }
 
@@ -995,7 +1021,7 @@ h6 span {
   padding: 0 30px;
   letter-spacing: 1px;
   border: none;
-  background-color: var(--chart-purple);
+  background-color: var(--chart-login-color);
   color: var(--color-allwayswhite);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
@@ -1060,8 +1086,8 @@ h6 span {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  color: var(--chart-purple);
-  background-color: var(--chart-purple);
+  color: var(--chart-login-color);
+  background-color: var(--chart-login-color);
   font-family: 'unicons';
   content: '\eb4f';
   z-index: 20;
@@ -1127,7 +1153,7 @@ h6 span {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--chart-purple);
+    background-color: var(--chart-login-color);
     color: var(--color-allwayswhite);
     padding: 12px 20px;
     border-radius: 30px;
@@ -1144,6 +1170,169 @@ h6 span {
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
   }
   
+
+#userMenu {
+    cursor: pointer;
+    font-size: 1.4rem;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+}
+
+.auth-dropdown {
+    position: relative;
+    display: none;
+}
+
+.auth-dropdown.visible {
+    display: block;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #2c3e50;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background: var(--background-color-primary);
+    border-radius: 8px;
+    border: 1px solid var(--chart-dark-border);
+    box-shadow: 0 4px 12px #6666665d;
+    min-width: 180px;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background: var(--background-color-primary);
+    border-radius: 12px;
+    border: 1px solid var(--chart-dark-border);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12); /* Sombra más suave */
+    min-width: 200px; /* Ancho aumentado */
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(12px); /* Efecto de vidrio esmerilado */
+    margin-top: 8px;
+
+    transform: scale(0.95) translateY(-10px);
+    transform-origin: top right; /* El punto de origen será la esquina superior derecha */
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Curva de animación elástica */
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+    
+    transform: scale(1) translateY(0); /* Estado final sin transformación */
+}
+
+/* Añadimos un pequeño triángulo indicador */
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    width: 16px;
+    height: 16px;
+    background: var(--background-color-primary);
+    border-top: 1px solid var(--chart-dark-border);
+    border-left: 1px solid var(--chart-dark-border);
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    margin: 0 12px; /* Margen interno para contener el hover */
+    color: var(--color-white) !important;
+    text-decoration: none;
+    gap: 12px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    position: relative;
+}
+
+/* Efecto hover mejorado y contenido */
+.dropdown-menu a:hover {
+    background: rgba(var(--links-color-rgb), 0.2);
+    color: var(--links-color) !important;
+    transform: translateX(6px); /* Reducimos el desplazamiento */
+    margin-left: 8px;
+    margin-right: 4px; /* Compensamos para no salirse */
+    box-shadow: -4px 0 12px rgba(var(--links-color-rgb), 0.15); /* Sombra direccional */
+}
+
+.dropdown-menu a:hover i {
+    transform: translateX(4px);
+    color: var(--links-color) !important;
+}
+
+/* Borde dinámico para el hover */
+.dropdown-menu a::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 3px;
+    background: var(--links-color);
+    border-radius: 2px;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.dropdown-menu a:hover::before {
+    opacity: 1;
+    left: 4px;
+}
+
+/* Mensajes de error */
+.error-message-login {
+    color: #ff6b6b;
+    font-size: 0.9em;
+    margin: 10px 0;
+    padding: 8px 15px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 4px;
+    position: relative;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.error-message-login.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 @media (max-width: 480px) {
   .form-wrapper {
