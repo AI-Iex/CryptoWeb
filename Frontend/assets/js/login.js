@@ -69,7 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('access_token', res.data.access_token);
             window.location.href = '../index.html';
         } catch (err) {
-            showError(loginError, 'Credenciales incorrectas');
+            // Obtener mensaje del backend o usar uno por defecto
+            const errorMessage = err.response?.data?.detail || 'Server error';
+    
+            // Mostrar error específico
+            showError(loginError, errorMessage);
             applyTempErrorStyle(emailField);
             applyTempErrorStyle(passField);
         }
@@ -145,11 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (error) {
         // Manejo mejorado de errores
-        const errorMessage = error.response?.data?.message || 'Error en el registro';
+        const errorMessage = error.response?.data?.detail || 'Server error';
         showError(registerError, errorMessage);
         
         // Resaltar campos relevantes según el error
-        if (errorMessage.includes('email')) {
+        if (errorMessage.includes('Email')) {
             applyTempErrorStyle(document.getElementById('register_email'));
         }
         if (errorMessage.includes('contraseña')) {

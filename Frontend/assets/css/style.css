@@ -187,6 +187,10 @@ body {
     font-weight: 600;
 }
 
+nav .main-bar{
+    display: flex;
+}
+
 nav {
     display: flex;
     align-items: center;
@@ -1333,125 +1337,72 @@ h6 span {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
 }
+/*———————————————————————————————————————*/
+/* Media Queries (Style.css) */
+/*———————————————————————————————————————*/
 
-@media (max-width: 480px) {
-  .form-wrapper {
-    max-width: 100%;
-    padding: 20px 10px;
-  }
-
-  .card-3d-wrap {
-    width: 100% !important;
-    height: 500px;
-    perspective: 1000px;
-  }
-
-  .card-3d-wrapper {
-    height: 100%;
-  }
-
-  .card-front,
-  .card-back {
-    height: 100%;
-    padding: 20px 10px;
-    box-sizing: border-box;
-  }
-
-  .form-style {
-    font-size: 14px;
-    padding: 12px 16px;
-    padding-left: 42px;
-  }
-
-  .input-icon {
-    left: 14px;
-    font-size: 20px;
-  }
-
-  .checkbox:checked + label,
-  .checkbox:not(:checked) + label {
-    width: 50px;
-    height: 14px;
-  }
-
-  .checkbox:checked + label:before,
-  .checkbox:not(:checked) + label:before {
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    line-height: 30px;
-    top: -8px;
-    left: -8px;
-  }
-
-  .checkbox:checked + label:before {
-    transform: translateX(36px) rotate(-270deg);
-  }
-
-  @media screen and (max-width: 1400px) {
-    
-    .coin-container{
+/* ==================== MEDIA QUERIES (XXL DEVICES) ==================== */
+@media screen and (max-width: 1400px) {
+    .coin-container {
         flex-wrap: wrap;
         justify-content: space-between;
     }
 
-    .coin-container .left-section{
+    .coin-container .left-section {
         width: 38%;
     }
 
-    .coin-container .main-section{
+    .coin-container .main-section {
         width: 59%;
     }
 
-    .coin-container .right-section{
+    .coin-container .right-section {
         flex-direction: row;
         width: 100%;
         gap: 20px;
     }
 
-    .coin-container .right-section .status{
+    .coin-container .right-section .status {
         width: 33%;
     }
 
     .coin-container .right-section .status > h3,
-    .coin-container .right-section .status:first-child > h3{
+    .coin-container .right-section .status:first-child > h3 {
         margin: 30px 0 20px;
     }
-
 }
 
+/* ==================== MEDIA QUERIES (XL DEVICES) ==================== */
 @media screen and (max-width: 1200px) {
-    
-    nav .right-section{
+    nav .right-section {
         width: 40%;
     }
 
     .trending .coins-wrapper .container,
     .trending .nfts-wrapper .container,
     .tab-content #asset-list,
-    .tab-content #exchange-list{
+    .tab-content #exchange-list {
         overflow-x: scroll;
     }
 
     .trending table,
     #asset-list table,
-    #exchange-list table{
+    #exchange-list table {
         width: 150%;
     }
 
-    table tr td.name-column{
+    table tr td.name-column {
         max-width: 160px;
         padding-right: 50px;
     }
 
-    .about-container .image img{
+    .about-container .image img {
         width: 90%;
     }
-
 }
 
-@media screen and (max-width: 992px) {
-    
+/* ==================== MEDIA QUERIES (LARGE DEVICES) ==================== */
+@media screen and (max-width: 949px) {
     .global{
         gap: 30px;
     }
@@ -1554,30 +1505,120 @@ h6 span {
         margin-top: 10px;
     }
 
+    #openMenu {
+        display: flex !important; /* Mostrar hamburger menu */
+        margin-left: auto;
+    }
+    
+    nav .right-section {
+        width: 100%;
+        order: 2;
+        justify-content: flex-end;
+    }
+    nav .left-section .nav-links {
+        display: none;
+    }
 }
 
+/* ==================== MEDIA QUERIES (MEDIUM DEVICES) ==================== */
 @media screen and (max-width: 768px) {
+    .navbar {
+        padding: 1.5rem 2rem;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+        margin-right: auto;
+    }
+
+    nav .right-section {
+        width: 100%;
+        order: 2;
+        justify-content: flex-end;
+    }
+
+    nav .left-section .nav-links {
+        display: none;
+    }
+
+    #openMenu {
+        display: flex;
+    }
+
+    .global p:last-child {
+        display: none;
+    }
+
+    .tab-container .tabs {
+        flex-wrap: wrap;
+        gap: 10px 0;
+    }
+
+    .chart-container {
+        height: 80vh;
+    }
+
+    .search-container .item:not(:first-child) h4 {
+        margin: 10px 0 20px;
+        border-top: 1px dashed var(--border-color);
+        padding-top: 20px;
+    }
+
+    .coin-container .right-section .status {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    /* Ajusta el ancho de toda la barra de búsqueda */
+  .main-bar .search {
+    width: 80%;
+   
+    margin: 0 auto; /* para centrarla si queda hueco */
+  }
+
+  /* Y si lo necesitas, ajusta también el input interno */
+  .main-bar .search input {
+    width: 100%;
+  }
+   
+}
+
+
+/* ==================== MEDIA QUERIES (SMALL DEVICES) ==================== */
+@media screen and (max-width: 480px) {
     
     .global p:last-child{
         display: none;
     }
 
-    nav .right-section{
-        width: 65%;
+    nav.main-bar {
+        position: relative;          /* Hacemos a <nav> contenedor posicionado */
+        padding-bottom: 50px;        /* Espacio para que no pise la búsqueda */
     }
 
-    nav .left-section{
-        gap: 10px;
+    .main-bar .right-section .search {
+        position: absolute;          /* La sacamos del flujo */
+        bottom: 0;                   /* Pegada abajo del <nav> */
+        left: 0;
+        width: 100%;
+        margin: 0;                   /* Quitamos márgenes anteriores */
     }
-
-    nav .left-section .nav-links{
-        display: none;
-    }
-
-    #openMenu{
+    
+    .main-bar .right-section {
         display: flex;
+        align-items: center;
+        width: 100%;
     }
 
+    /* Empuja el logo al extremo izquierdo */
+    nav.main-bar .logo {
+        margin-left: -30px;
+        order: -1;
+    }
+    
     .tab-container .tabs{
         flex-wrap: wrap;
         gap: 10px 0;
@@ -1625,9 +1666,36 @@ h6 span {
         width: 100%;
     }
 
-    .coin-container .right-section .status{
-        width: 100%;
+    /* GRÁFICA MANTIENE SU AJUSTE */
+    .coin-container .main-section {
+        width: 100% !important;
+        margin: 0 !important;
+        height: 55vh !important;
+    }
+    .coin-container .left-section {
+        width: 100% !important;
+    }
+    .coin-container .right-section .status h3 {
+        text-align: center !important;
+        width: 100% !important;
+        padding: 0 10px !important;
+        margin: 0 0 15px 0 !important;
     }
 
-}
+    /* Layout grid ajustado */
+    .coin-container .right-section {
+        display: grid !important;
+        gap: 15px;
+        width: 100% !important;
+    }
+
+    .coin-container .right-section .status:nth-child(3) {
+        margin-top: 10px !important;
+    }
+
+    /* Asegurar alineación del contenido */
+    .coin-container .status .item {
+        text-align: center !important;
+        align-items: center !important;
+    }
 }

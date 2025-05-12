@@ -19,30 +19,46 @@ from Backend.Repositories.user_repository import create_user, get_user_by_email
 # Configurar el logger
 logger = logging.getLogger(__name__)
 
-def create_new_user_service(db, user: UserCreate):
+def create_new_user_service(db: Session, user: UserCreate):
     try:
-        # Verificar si el usuario ya existe
+        # Búsqueda de usuario existente
         existing_user = get_user_by_email(db, user.email)
         if existing_user:
-            raise HTTPException(status_code=400, detail="Email already registered")
+            raise HTTPException(
+                status_code=409,
+                detail="Email already registered"
+            )
 
-        # Hashear la contraseña antes de crear el usuario
+        # Operación con la base de datos
         hashed_password = get_password_hash(user.password)
-
-        # Crear un nuevo usuario
         new_user = create_user(db, user, hashed_password)
-
+        
+        db.commit()
+        
         return new_user
 
     except SQLAlchemyError as e:
-        # Capturar errores de la base de datos
-        logger.error(f"Database error: {str(e)}")
-        raise HTTPException(status_code=500, detail="SQLAlchemyError error")
+        db.rollback()  # Importante para integridad transaccional
+        logger.error(f"Database error during user creation: {str(e)}", 
+                   extra={'email': user.email, 'error_type': type(e).__name__})
+        raise HTTPException(
+            status_code=503,  # Más apropiado para errores de infraestructura
+            detail="Service temporarily unavailable"
+        )
+
+    except HTTPException:
+        # Re-lanzar excepciones HTTP ya manejadas
+        raise
 
     except Exception as e:
-        # Capturar cualquier otro error inesperado
-        logger.error(f"Unexpected error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Another server error")
+        logger.critical(f"Unexpected error during user creation: {str(e)}",
+                      exc_info=True,
+                      stack_info=True,
+                      extra={'email': user.email})
+        raise HTTPException(
+            status_code=500,
+            detail="Internal server error"
+        )
     
 def login_user_service(db: Session, email: str, password: str) -> User:
     user = get_user_by_email(db, email)
