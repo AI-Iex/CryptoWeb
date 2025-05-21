@@ -3,175 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Usuario</title>
-    <style>
-        :root {
-            --chart-login-color: #2c3e50;
-            --background-color: #f5f6fa;
-            --text-color: #2c3e50;
-            --hover-color: #3498db;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: var(--background-color);
-            min-height: 100vh;
-        }
-
-        .profile-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
-        }
-
-        .profile-header {
-            display: flex;
-            justify-content: flex-end;
-            position: relative;
-        }
-
-        .profile-dropdown {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .user-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--chart-login-color);
-            transition: all 0.3s ease;
-        }
-
-        .user-avatar:hover {
-            transform: scale(1.05);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            min-width: 200px;
-            display: none;
-            z-index: 1000;
-            margin-top: 1rem;
-            overflow: hidden;
-        }
-
-        .dropdown-menu.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .menu-item {
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.2s ease;
-        }
-
-        .menu-item:hover {
-            background: #f8f9fa;
-            padding-left: 1.5rem;
-        }
-
-        .menu-item i {
-            width: 25px;
-            font-size: 1.1rem;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .profile-content {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: #f8f9fa;
-            border-radius: 12px;
-        }
-
-        /* Resto de estilos se mantienen igual */
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>CryptoWeb - User</title>
 </head>
+
 <body>
-    <div class="profile-container">
-        <!-- Encabezado con menú desplegable -->
-        <div class="profile-header">
-            <div class="profile-dropdown" id="profileDropdown">
-                <img src="user-avatar-placeholder.jpg" alt="Avatar" class="user-avatar">
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-user"></i>Mi Perfil
-                    </a>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-lock"></i>Seguridad
-                    </a>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-shield-alt"></i>Privacidad
-                    </a>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-cog"></i>Ajustes
-                    </a>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-sign-out-alt"></i>Cerrar Sesión
-                    </a>
-                </div>
-            </div>
+    
+    <div class="overlay">
+        <button id="closeMenu"><i class="ri-close-circle-line"></i></button>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="pages/charts.html">Charts</a>
+            <a href="pages/search.html">Search</a>
+            <a href="pages/about.html">About US</a>
         </div>
 
-        <!-- Contenido principal (se mantiene igual) -->
-        <div class="profile-content">
-            <!-- ... mismo contenido anterior ... -->
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alexsastre099@gmail.com"><i class="ri-mail-line"></i></a>
+            <a href="https://github.com/AI-Iex"><i class="ri-github-line"></i></a>
         </div>
+
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropdownTrigger = document.getElementById('profileDropdown');
-            const dropdownMenu = document.getElementById('dropdownMenu');
+    <div class="main">
 
-            // Toggle del menú al hacer clic en el avatar
-            dropdownTrigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdownMenu.classList.toggle('active');
-            });
+        <div class="global">
+            <p>Coins: <b id="coins-count">N/A</b></p>
+            <p>Exchanges: <b id="exchanges-count">N/A</b></p>
+            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i
+                            class="ri-arrow-down-s-fill"></i></span></span></p>
+            <p>24H Vol: <b id="volume">N/A</b></p>
+            <p>Dominance: <b id="dominance">BTC N/A% - ETH N/A%</b></p>
+        </div>
 
-            // Cerrar menú al hacer clic fuera
-            document.addEventListener('click', (e) => {
-                if (!dropdownTrigger.contains(e.target)) {
-                    dropdownMenu.classList.remove('active');
-                }
-            });
+        <nav class = "main-bar">
+            <div class="left-section">
+                <button id="openMenu"><i class="ri-menu-line"></i></button>
+                <a class="logo"></a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../pages/charts.html">Charts</a>
+                    <a href="../pages/search.html">Search</a>
+                    <a href="../pages/about.html">About US</a>
+                </div>
+            </div>
+            <div class="right-section">
+                <form class="search" id="searchForm">
+                    <i class="ri-search-line"></i>
+                    <input type="text" id="searchInput" placeholder="Search for an asset..." required
+                        autocomplete="off">
+                </form>
+                <i id="theme-toggle" class="ri-sun-line"></i>
+                <i id="userMenu" class="ri-user-line"></i>
+                <!-- Elemento para usuario logueado -->
+                <div class="auth-dropdown hidden" id="authDropdown">
+                    <img src="../images/default-avatar.png" class="user-avatar" alt="Usuario">
+                    <div class="dropdown-menu">
+                        <a href="../pages/user.html"><i class="ri-user-line"></i>Profile</a>
+                        <a href="#!" id="logout-btn"><i class="ri-logout-circle-line"></i>Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-            // Cerrar menú al hacer clic en un item (opcional)
-            dropdownMenu.querySelectorAll('.menu-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    dropdownMenu.classList.remove('active');
-                });
-            });
-        });
-    </script>
+
+
+    </div>
+
+    <button onclick="scrollToTop()" id="scrollTop"><i class="ri-arrow-up-s-line"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

@@ -1,24 +1,29 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from Backend.Schemas.user import UserCreate, UserLogin, UserRead
-from Backend.Services.user_service import create_new_user_service, login_user_service
+from pydantic import BaseModel
+
 from Backend.db.session import get_db
+from Backend.Services.user_service import create_new_user_service, login_user_service
 from Backend.Core.security import create_access_token
+from Backend.Schemas.user import UserCreate, UserRead
 
-router = APIRouter()
+class UserLogin(BaseModel):
+    email: str
+    password: str
 
-# Endpoint para registrar un nuevo usuario
-@router.post("/register", response_model=UserRead)
+router = APIRouter(prefix="/auth", tags=["Auth"])
+
+# Registro público
+@router.post("/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
-    # Llamamos al servicio para crear un nuevo usuario
     return create_new_user_service(db=db, user=user)
 
-# Endpoint para iniciar sesión
-@router.post("/login")
-def login_user(user: UserLogin, db: Session = Depends(get_db)):
-    db_user = login_user_service(db=db, email=user.email, password=user.password)
-    if not db_user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-
-    access_token = create_access_token(data={"sub": db_user.email})
-    return {"access_token": access_token, "token_type": "bearer"}
+# Login público
+@router.post("/login", response_model=dict)
+def login_user(login_data: UserLogin, db: Session = Depends(get_db)):
+    user = login_user_service(db=db, email=login_data.email, password=login_data.password)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+    token = create_access_token(data={"sub": user.email})
+    return JSONResponse({"access_token": token, "token_type": "bearer"})
