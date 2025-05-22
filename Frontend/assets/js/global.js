@@ -5,6 +5,12 @@ const marketCapChangeElement = document.getElementById('marketCapChange');
 const volume = document.getElementById('volume');
 const dominance = document.getElementById('dominance');
 
+window.addEventListener('load', () => {
+  document.getElementById('preloader').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const themeToggle = document.getElementById('theme-toggle');

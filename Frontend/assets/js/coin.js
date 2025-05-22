@@ -101,12 +101,28 @@ function displayCoinInfo(coin) {
     const coinInfo = document.querySelector('.coin-info');
     const rightSec = document.querySelector('.coin-container .right-section');
     const coinDesc = document.getElementById('coin-desc-p');
+    const token = localStorage.getItem('access_token');
 
     coinInfo.innerHTML = `
         <div class="logo">
                     <img src="${coin.image.thumb}" alt="${coin.name}">
                     <h4>${coin.name} <span>(${coin.symbol.toUpperCase()})</span></h4>
                     <p>#${coin.market_cap_rank}</p>
+                    ${ token
+                    ? (() => {
+                        const isFav = userFavorites.includes(coin.id);
+                        return `<div class="fav-container">
+                                    <button 
+                                        class="fav-btn" 
+                                        data-coin-id="${coin.id}" 
+                                        onclick="toggleFavorite('${coin.id}', this)"
+                                    >
+                                        <i class="${isFav ? 'ri-heart-fill' : 'ri-heart-line'}"></i>
+                                    </button>
+                                </div>`;
+                        })()
+                    : ''
+                }
                 </div>
                 <div class="status">
                     

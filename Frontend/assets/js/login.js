@@ -162,3 +162,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginPasswordInput = document.getElementById('login_password');
+  const loginButton = document.getElementById('Login_btn');
+
+  loginPasswordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Evitar comportamiento por defecto (si fuera formulario)
+      loginButton.click();
+    }
+  });
+});

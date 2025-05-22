@@ -1,17 +1,18 @@
 from fastapi import FastAPI
-from Backend.Api import auth, users, roles
+from Backend.Api import auth, users, roles, favorites
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import os
 from Backend.db.init_db import init_roles
 
 from Backend.db.session import engine
-from Backend.Models import user, role, user_roles  # Asegúrate de importar el modelo para que se cree la tabla
+from Backend.Models import user, role, user_roles, favorite  # Asegúrate de importar el modelo para que se cree la tabla
 
 # Crear las tablas si no existen
 user.Base.metadata.create_all(bind=engine)
 role.Base.metadata.create_all(bind=engine)
 user_roles.Base.metadata.create_all(bind=engine)
+favorite.Base.metadata.create_all(bind=engine)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -39,5 +40,6 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(roles.router)
+app.include_router(favorites.router)
 
 

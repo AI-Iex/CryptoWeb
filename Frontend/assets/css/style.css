@@ -158,6 +158,34 @@ table thead tr:hover {
     cursor: unset !important;
 }
 
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.logo-loader {
+  width: 120px;
+  height: 120px;
+  background-image: var(--logo-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 body {
     background: var(--background-color);
     display: flex;
@@ -326,6 +354,7 @@ nav .right-section > i.ri-moon-line {
 
 .trending .coins-wrapper table tr,
 .tab-container .tab-content #asset-list table tr,
+.tab-container .tab-content #favorites-list table tr,
 .search-container .item #coins-list table tr {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -346,7 +375,9 @@ nav .right-section > i.ri-moon-line {
 .trending .coins-wrapper table tr:hover,
 .trending .coins-wrapper table tr:hover td.table-fixed-column,
 .tab-container .tab-content #asset-list table tr:hover,
+.tab-container .tab-content #favorites-list table tr:hover,
 .tab-container .tab-content #asset-list table tr:hover td.table-fixed-column,
+.tab-container .tab-content #favorites-list table tr:hover td.table-fixed-column,
 .search-container .item #coins-list table tr:hover {
     background: var(--background-color-secondary);
 }
@@ -384,6 +415,7 @@ nav .right-section > i.ri-moon-line {
     background-color: var(--background-color-primary);
     padding: 20px;
     border-radius: 12px;
+    margin-bottom: 20px;
 }
 
 .tab-container .tabs {
@@ -748,6 +780,50 @@ footer .social-icons a i,
 
 .coin-desc p a {
     color: var(--links-color);
+}
+
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--chart-login-color);
+  color: var(--color-allwayswhite);
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px var(--chart-login-color-shadow);
+  transition: all 0.3s ease;
+}
+
+.login-button i {
+  font-size: 1.2rem;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px var(--chart-login-color-shadow);
+  opacity: 0.9;
+}
+.login-required-container {
+  background-color: var(--background-color-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  max-width: 400px;
+  margin: 3rem auto;
+}
+
+.login-message {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 #openMenu {
@@ -1333,6 +1409,50 @@ h6 span {
     display: block;
 }
 
+.fav-container {
+    text-align: center;
+    margin-left: auto; /* fuerza que el botón quede a la derecha */
+}
+
+.fav-container button {
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    background: var(--background-color-secondary);
+    color: var(--text-secondary);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.fav-container button:hover,
+.fav-container button:active {
+    background: var(--links-color);
+    color: var(--color-allwayswhite);
+}
+
+/* Animación temporal de añadido */
+.fav-container button.added {
+    background: var(--chart-login-color);
+    color: var(--color-allwayswhite);
+    animation: pop-added 0.4s ease;
+}
+
+@keyframes pop-added {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1381,12 +1501,14 @@ h6 span {
     .trending .coins-wrapper .container,
     .trending .nfts-wrapper .container,
     .tab-content #asset-list,
+    .tab-content #favorites-list,
     .tab-content #exchange-list {
         overflow-x: scroll;
     }
 
     .trending table,
     #asset-list table,
+    #favorites-list table,
     #exchange-list table {
         width: 150%;
     }
@@ -1444,6 +1566,7 @@ h6 span {
     }
 
     #asset-list table,
+    #favorites-list table,
     #exchange-list table{
         width: 200%;
     }
@@ -1629,6 +1752,7 @@ h6 span {
     }
 
     #asset-list table,
+    #favorites-list table,
     #exchange-list table,
     .tab-content #category-list table{
         width: 300%;
