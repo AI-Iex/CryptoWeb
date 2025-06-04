@@ -1,17 +1,12 @@
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/variables.css');
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/fonts.css');
+@import url('./variables.css');
+@import url('./fonts.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css');
 
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/Components/preloader.css');
+@import url('./Components/preloader.css');
+@import url('./Components/global-header.css');
+@import url('./Components/bar-section.css');
+@import url('./Components/overlay-menu.css');
+@import url('./Components/bt-scroll-top.css');
+@import url('./Components/footer.css');
 
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/Components/global-header.css');
-
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/Components/bar-section.css');
-
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/Components/overlay-menu.css');
-
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/Components/bt-scroll-top.css');
-
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/Components/footer.css');
-
-@import url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/assets/css/User/user-menu.css');
+@import url('./User/user-menu.css');
