@@ -18,6 +18,20 @@
     --chart-login-color:#00cfff;
     --chart-login-color-shadow:rgba(0, 0, 0, 0.4);
 
+    --tag-bg-color: #10b981;
+    --tag-text-color: #050505;
+    --transition-speed: 0.3s;
+    --border-radius: 12px;
+
+    --about-block-bg: rgba(174, 221, 230, 0.534);
+    --about-block-border: rgba(96, 232, 250, 0.781);
+    --about-header-text-color: rgba(156, 223, 236, 0.397);
+    --about-header-text-hover-color: rgba(96, 214, 250, 0.671);
+    --about-header-text-shadow: rgba(0, 0, 0, 0.1);
+    --about-header-text-hover-shadow: rgba(124, 231, 250, 0.5);
+    --about-transition-speed: 0.3s;
+    --about-border-radius: 12px;
+
     --links-color: #1565C0;
 
     --logo-url: url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/images/light-logo.gif');
@@ -37,6 +51,20 @@
     --chart-login-color-shadow:rgba(196, 20, 158, 0.4);
     --color-allwayswhite: #ffffff;
     --text-primary:#e9e1e1;
+
+    --tag-bg-color: #059669;
+    --tag-text-color: #fff;
+    --transition-speed: 0.3s;
+    --border-radius: 12px;
+
+    --about-block-bg: rgba(96, 165, 250, 0.1);
+    --about-block-border: rgba(96, 165, 250, 0.25);
+    --about-header-text-color: rgba(255, 255, 255, 0.2);
+    --about-header-text-hover-color: rgba(96, 165, 250, 0.5);
+    --about-header-text-shadow: rgba(255, 255, 255, 0.1);
+    --about-header-text-hover-shadow: rgba(96, 165, 250, 0.5);
+    --about-transition-speed: 0.3s;
+    --about-border-radius: 12px;
 
     --links-color: #1565C0;
 

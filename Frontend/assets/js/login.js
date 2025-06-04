@@ -195,3 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+ // ============================
+  // Google login y Forgot password not implemented
+  // ============================
+document.getElementById('forgot-password-link').addEventListener('click', function(event) {
+  event.preventDefault();
+  alert('Not implemented yet');
+});
+
+document.getElementById('google-signin-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+    alert('Not implemented yet');
+  });

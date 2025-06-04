@@ -12,5 +12,6 @@ class Settings:
     ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
     ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
     ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+    DATABASE_URL = os.getenv("DATABASE_URL")
 
 settings = Settings()

@@ -1,0 +1,24 @@
+# Entornos virtuales
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Archivos de configuración sensibles
+*.env
+
+# Archivos y carpetas de Git
+.git
+.gitignore
+
+# Archivos de log
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.db
+
+# Archivos de desarrollo
+*.md
+*.sqlite3

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/Pages/about.css">
     <link rel="stylesheet" href="../assets/css/responsive.css">
 
-    <title>CryptoWeb - About</title>
+    <title>CryptoWeb - About Us</title>
 </head>
 
 <body>
@@ -89,28 +89,99 @@
 
         </nav>
 
-        <!-- Contenedor Principal del about -->
-        <div class="about-container">
-            <div class="info">
-                <h3>The CryptoWeb Story</h3>
-                <p>
-                    Welcome to CryptoWeb, your premier destination for seamless and secure cryptocurrency transactions.
-                    Our mission is to empower individuals and institutions by providing a platform that combines
-                    innovation, security, and user-friendly design to meet all your digital asset needs.
-                    <br><br>
-                    At CryptoWeb, we envision a world where digital currency is accessible to everyone. We strive to
-                    bridge the gap between traditional finance and the future of money by offering a platform that
-                    simplifies cryptocurrency trading while ensuring the highest standards of security and reliability.
-                </p>
-                <div class="buttons">
-                    <button>Learn More</button>
-                    <button>Contact US</button>
+        <div class="container">
+            <!-- Cabecera About -->
+            <div class="about-header">
+                <div class="header-block"></div>
+                <div class="header-block"></div>
+                <div class="header-block"></div>
+                <div class="header-block"></div>
+                <div class="header-text">ABOUT US</div>
+            </div>
+
+            <!-- Contenido -->
+            <section class="about-container">
+                <div class="info">
+                    <article>
+                        <h3>About Me</h3>
+                        <p>
+                        <span class="tag">Hi! Im Alejandro Sastre 👋</span>, a Software Engineer specializing in backend, AI and Cloud Computing ☁️💻 . 
+                        Passionate about building scalable aplications and creating AI and cloud solutions 🎯. 
+                        <p>Always eager to learn new technologies and tackle challenging problems 🧠✨.</p>
+                        </p>
+                    </article>
+                    <article>
+                        <h3>About this Project</h3>
+                        <p>
+                            This project was born as a personal initiative to demonstrate my technical and creative skills in the development of web solutions.
+                            I designed and developed it entirely as part of my portfolio, integrating modern technologies and strategically facing the limitations
+                            of free APIs such as <span class="tag">CoinGecko</span> (cryptocurrency data), <span class="tag">News API</span> (financial information) and <span class="tag">Together.ai</span> (AI models).
+                        </p>
+                    </article>
+
+                    <article>
+                        <h3>Overcoming Limitations</h3>
+                        <p>
+                            Far from being an obstacle, the limits imposed by free APIs—such as rate limits, data restrictions, or basic integrations—became an opportunity to explore creative and efficient solutions.
+                            <p>This project reflects how I transform technical constraints into practical functionalities, delivering a complete and seamless management experience, including enabling the AI to use tools freely and without extra cost.</p>
+                        </p>
+                    </article>
+
+                    <article>
+                        <h3>Artificial Intelligence</h3>
+                        <ul>
+                            <li>🧠 <span class="tag">Conversational AI</span> powered by the "meta-llama" model, without chat history for maximum privacy.</li>
+                            <li>🔧 <span class="tag">MCP Tools</span> Simulated Model Context Protocol tools allow the AI to interact with the API in real time — 100% free of charge:
+                                <ul class="nested-list">
+                                    <li><span class="tag">Portfolio Analysis</span> the AI queries the user's portfolio to answer questions about balance, performance, and asset distribution.</li>
+                                    <li><span class="tag">Favorite Cryptos</span> the AI fetches the user's favorites to answer related questions or suggest new coins.</li>
+                                    <li><span class="tag">Combined Tools</span> the AI can use both tools simultaneously to relate tracked coins with portfolio holdings.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article>
+                        <h3>Backend Overview</h3>
+                        <p>
+                            The backend is built with <span class="tag">Python</span> and <span class="tag">FastAPI</span>, following a clean, modular architecture:
+                        </p>
+                        <ul>
+                            <li><span class="tag">FastAPI</span> for high-performance REST endpoints.</li>
+                            <li><span class="tag">SQLAlchemy</span> as ORM to interact with a <span class="tag">PostgreSQL</span> database.</li>
+                            <li><span class="tag">Routes</span> for organizing and exposing API endpoints.</li>
+                            <li><span class="tag">Auth Public Endpoints</span> for sign-up and login, with protection against unauthorized admin-role assignment.</li>
+                            <li><span class="tag">Services</span> to encapsulate business logic and process requests.</li>
+                            <li><span class="tag">Repositories</span> to handle CRUD operations cleanly.</li>
+                            <li><span class="tag">Schemas</span> to define DTOs and avoid exposing sensitive fields.</li>
+                            <li><span class="tag">News API</span> integration handled server-side via a private route to protect the API key and control query limits.</li>
+                            <li><span class="tag">Chatbot</span> exposed through a protected route requiring user authentication.</li>
+                            <li><span class="tag">Docker</span> for containerization, local development, and deployment.</li>
+                            <li><span class="tag">JWT</span> for secure token-based authentication.</li>
+
+                        </ul>
+                    </article>
+
+                    <article>
+                        <h3>Frontend Features</h3>
+                        <ul>
+                            <li>🎨 <span class="tag">Responsive Design</span> mobile-to-desktop layout using CSS Grid & Flexbox.</li>
+                            <li>🌗 <span class="tag">Dark/Light Theme</span> toggle with CSS variables and smooth transitions.</li>
+                            <li>📊 <span class="tag">Interactive Charts</span> using Chart.js for real-time crypto visualization.</li>
+                            <li>📰 <span class="tag">Topical News</span> displays and filters relevant news based on crypto trends.</li>
+                            <li>📈 <span class="tag">Fear and Greed Index</span> shows current score, historical cards, and chart.</li>
+                            <li>💾 <span class="tag">LocalStorage</span> to persist favorites, recent searches, and user preferences.</li>
+                            <li>💼 <span class="tag">Portfolio</span> tab shows user holdings, balance snapshots, and performance overview.</li>
+                            <li>🤖 <span class="tag">Chatbot</span> floating/tab AI assistant powered by Together.ai via Model Context Protocol.</li>
+                            <li>✨ <span class="tag">Animations</span> micro-interactions with CSS transitions.</li>
+                        </ul>
+                    </article>
                 </div>
-            </div>
-            <div class="image">
-                <img src="https://images.unsplash.com/photo-1620336655052-b57986f5a26a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="about">
-            </div>
+            </section>
         </div>
+        <!-- ================= FIN About Me ==================== -->
+    </div>
+
 
 
     </div>
