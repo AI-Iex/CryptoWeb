@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/Pages/about.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <title>CryptoWeb - About Us</title>
+</head>
+
+<body>
+
+    <!-- Cargador de la página -->
+    <div id="preloader">
+        <div class="logo-loader"></div>
+    </div>
+
+    <!-- Menu móvil -->
+    <div class="overlay">
+        <button id="closeMenu"><i class="ri-close-circle-line"></i></button>
+
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="user.html" class="user-leftsection">Profile</a>
+            <a href="charts.html">Charts</a>
+            <a href="fearandgreed.html">Fear & Greed</a>
+            <a href="news.html">News</a>
+            <a href="about.html" class="active">About US</a>
+            <a href="https://cryptoweb-2lnu.onrender.com/docs#/" target="_blank" rel="noopener noreferrer"> API</a>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alexsastre099@gmail.com"><i class="ri-mail-line"></i></a>
+            <a href="https://github.com/AI-Iex"><i class="ri-github-line"></i></a>
+        </div>
+
+    </div>
+
+    <div class="main">
+
+        <!-- Cabecera -->
+        <div class="global">
+            <p>Coins: <b id="coins-count">N/A</b></p>
+            <p>Exchanges: <b id="exchanges-count">N/A</b></p>
+            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i class="ri-arrow-down-s-fill"></i></span></span></p>
+            <p>24H Vol: <b id="volume">N/A</b></p>
+            <p>Dominance: <b id="dominance">BTC N/A% - ETH N/A%</b></p>
+        </div>
+
+        <!-- Barra de navegación -->
+        <nav class = "main-bar">
+
+            <div class="left-section">
+                <button id="openMenu"><i class="ri-menu-line"></i></button>
+                <a class="logo"></a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="user.html" class="user-leftsection">Profile</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="fearandgreed.html">Fear & Greed</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html" class="active">About US</a>
+                    <a href="https://cryptoweb-2lnu.onrender.com/docs#/" target="_blank" rel="noopener noreferrer"> API</a>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <form class="search" id="searchForm">
+                    <i class="ri-search-line"></i>
+                    <input type="text" id="searchInput" placeholder="Search for an asset..." required autocomplete="off">
+                </form>
+
+                <i id="theme-toggle" class="ri-sun-line"></i>
+                <i id="userMenu" class="ri-user-line"></i>
+                <!-- Elemento para usuario logueado -->
+                <div class="auth-dropdown hidden" id="authDropdown">
+                    <img src="../images/default-avatar.png" class="user-avatar" alt="Usuario">
+                    <div class="dropdown-menu">
+                        <a href="../pages/user.html"><i class="ri-user-line"></i>Profile</a>
+                        <a href="#!" id="logout-btn"><i class="ri-logout-circle-line"></i>Log Out</a>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
+        <div class="container">
+            <!-- Cabecera About -->
+            <div class="about-header">
+                <div class="header-block"></div>
+                <div class="header-block"></div>
+                <div class="header-block"></div>
+                <div class="header-block"></div>
+                <div class="header-text">ABOUT US</div>
+            </div>
+
+            <!-- Contenido -->
+            <section class="about-container">
+                <div class="info">
+                    <article>
+                        <h3>About Me</h3>
+                        <p>
+                        <span class="tag">Hi! Im Alejandro Sastre 👋</span>, a Software Engineer specializing in backend, AI and Cloud Computing ☁️💻 . 
+                        Passionate about building scalable aplications and creating AI and cloud solutions 🎯. 
+                        <p>Always eager to learn new technologies and tackle challenging problems 🧠✨.</p>
+                        </p>
+                    </article>
+                    <article>
+                        <h3>About this Project</h3>
+                        <p>
+                            This project was born as a personal initiative to demonstrate my technical and creative skills in the development of web solutions.
+                            I designed and developed it entirely as part of my portfolio, integrating modern technologies and strategically facing the limitations
+                            of free APIs such as <span class="tag">CoinGecko</span> (cryptocurrency data), <span class="tag">News API</span> (financial information) and <span class="tag">Together.ai</span> (AI models).
+                        </p>
+                    </article>
+
+                    <article>
+                        <h3>Overcoming Limitations</h3>
+                        <p>
+                            Far from being an obstacle, the limits imposed by free APIs—such as rate limits, data restrictions, or basic integrations—became an opportunity to explore creative and efficient solutions.
+                            <p>This project reflects how I transform technical constraints into practical functionalities, delivering a complete and seamless management experience, including enabling the AI to use tools freely and without extra cost.</p>
+                        </p>
+                    </article>
+
+                    <article>
+                        <h3>Artificial Intelligence</h3>
+                        <ul>
+                            <li>🧠 <span class="tag">Conversational AI</span> powered by the "meta-llama" model, without chat history for maximum privacy.</li>
+                            <li>🔧 <span class="tag">MCP Tools</span> Simulated Model Context Protocol tools allow the AI to interact with the API in real time — 100% free of charge:
+                                <ul class="nested-list">
+                                    <li><span class="tag">Portfolio Analysis</span> the AI queries the user's portfolio to answer questions about balance, performance, and asset distribution.</li>
+                                    <li><span class="tag">Favorite Cryptos</span> the AI fetches the user's favorites to answer related questions or suggest new coins.</li>
+                                    <li><span class="tag">Combined Tools</span> the AI can use both tools simultaneously to relate tracked coins with portfolio holdings.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article>
+                        <h3>Backend Overview</h3>
+                        <p>
+                            The backend is built with <span class="tag">Python</span> and <span class="tag">FastAPI</span>, following a clean, modular architecture:
+                        </p>
+                        <ul>
+                            <li><span class="tag">FastAPI</span> for high-performance REST endpoints.</li>
+                            <li><span class="tag">SQLAlchemy</span> as ORM to interact with a <span class="tag">PostgreSQL</span> database.</li>
+                            <li><span class="tag">Routes</span> for organizing and exposing API endpoints.</li>
+                            <li><span class="tag">Auth Public Endpoints</span> for sign-up and login, with protection against unauthorized admin-role assignment.</li>
+                            <li><span class="tag">Services</span> to encapsulate business logic and process requests.</li>
+                            <li><span class="tag">Repositories</span> to handle CRUD operations cleanly.</li>
+                            <li><span class="tag">Schemas</span> to define DTOs and avoid exposing sensitive fields.</li>
+                            <li><span class="tag">News API</span> integration handled server-side via a private route to protect the API key and control query limits.</li>
+                            <li><span class="tag">Chatbot</span> exposed through a protected route requiring user authentication.</li>
+                            <li><span class="tag">Docker</span> for containerization, local development, and deployment.</li>
+                            <li><span class="tag">JWT</span> for secure token-based authentication.</li>
+
+                        </ul>
+                    </article>
+
+                    <article>
+                        <h3>Frontend Features</h3>
+                        <ul>
+                            <li>🎨 <span class="tag">Responsive Design</span> mobile-to-desktop layout using CSS Grid & Flexbox.</li>
+                            <li>🌗 <span class="tag">Dark/Light Theme</span> toggle with CSS variables and smooth transitions.</li>
+                            <li>📊 <span class="tag">Interactive Charts</span> using Chart.js for real-time crypto visualization.</li>
+                            <li>📰 <span class="tag">Topical News</span> displays and filters relevant news based on crypto trends.</li>
+                            <li>📈 <span class="tag">Fear and Greed Index</span> shows current score, historical cards, and chart.</li>
+                            <li>💾 <span class="tag">LocalStorage</span> to persist favorites, recent searches, and user preferences.</li>
+                            <li>💼 <span class="tag">Portfolio</span> tab shows user holdings, balance snapshots, and performance overview.</li>
+                            <li>🤖 <span class="tag">Chatbot</span> floating/tab AI assistant powered by Together.ai via Model Context Protocol.</li>
+                            <li>✨ <span class="tag">Animations</span> micro-interactions with CSS transitions.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+        </div>
+        <!-- ================= FIN About Me ==================== -->
+    </div>
+
+
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alexsastre099@gmail.com"><i class="ri-mail-line"></i></a>
+            <a href="https://github.com/AI-Iex"><i class="ri-github-line"></i></a>
+        </div>
+    </footer>
+
+    <!-- Botón scroll top -->
+    <button onclick="scrollToTop()" id="scrollTop"><i class="ri-arrow-up-s-line"></i></button>
+    
+    <script src="../assets/js/global.js"></script>
+    
+</body>
+
+</html>
