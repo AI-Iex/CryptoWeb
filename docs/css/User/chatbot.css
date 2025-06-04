@@ -1,0 +1,134 @@
+/* =============== CHATBOT =============== */
+.chatbot-card {
+    background: var(--background-color-primary);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    min-height: 400px;
+    height: auto;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.chat-header .ri-robot-line {
+    font-size: 2rem;
+    color: var(--chart-login-color);
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 1.5rem;
+    min-height: 0;
+}
+
+.message-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--background-color-primary);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.message-content {
+    padding: 0.8rem 1.2rem;
+    margin: 0.5rem 0;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    white-space: pre-wrap;
+}
+
+.bot-message {
+    align-self: flex-start;
+}
+
+.bot-message .message-content {
+    background: var(--background-color-secondary);
+    color: var(--text-primary);
+    border-radius: 12px 12px 12px 0;
+}
+
+.user-message {
+    align-self: flex-end;
+    max-width: 80%;
+}
+
+.user-message .message-content {
+    background: var(--chart-login-color);
+    color: var(--color-allwayswhite);
+    border-radius: 12px 12px 0 12px;
+    text-align: right;
+    padding: 8px 12px;
+    word-wrap: break-word;      
+    overflow-wrap: break-word; 
+    white-space: pre-wrap;
+    display: inline-block;
+}
+
+
+.message-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    text-align: right;
+}
+
+.user-message .message-time {
+    text-align: right;
+}
+
+.bot-message .message-time {
+    text-align: left;
+}
+
+.chat-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+}
+
+.chat-input {
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--background-color-secondary);
+    color: var(--text-primary);
+    width: 100%;
+}
+
+.send-button {
+    background: var(--chart-login-color);
+    color: var(--color-allwayswhite);
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    height: 100%;
+}
+
+.send-button:hover {
+    transform: translateY(-2px);
+}
+

@@ -1,0 +1,272 @@
+.container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin: 0 auto;
+}
+
+/* ============================
+   Cabecera “About Me”
+   ============================ */
+.about-header {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(
+        135deg,
+        var(--background-color-secondary) 0%,
+        var(--background-color-primary) 100%
+    );
+    border-radius: var(--about-border-radius);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.header-block {
+    position: absolute;
+    width: 80px;
+    height: 120px;
+    background: var(--about-block-bg);
+    border: 1px solid var(--about-block-border);
+    border-radius: 5px;
+    transform: rotate(45deg);
+    animation: float 15s infinite linear;
+    transition: all var(--about-transition-speed) ease;
+}
+
+.header-block:hover {
+    background: var(--about-block-border);
+    transform: rotate(45deg) scale(1.2);
+    box-shadow: 0 0 20px var(--about-block-border);
+}
+
+.header-block:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.header-block:nth-child(2) {
+    top: 60%;
+    left: 70%;
+    animation-delay: -3s;
+}
+
+.header-block:nth-child(3) {
+    top: 30%;
+    left: 80%;
+    animation-delay: -6s;
+}
+
+.header-block:nth-child(4) {
+    top: 70%;
+    left: 20%;
+    animation-delay: -9s;
+}
+
+.header-text {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--about-header-text-color);
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    text-align: center;
+    z-index: 2;
+    transition: all var(--about-transition-speed) ease;
+    text-shadow: 0 0 10px var(--about-header-text-shadow);
+}
+
+.about-header:hover .header-text {
+    color: var(--about-header-text-hover-color);
+    text-shadow: 0 0 20px var(--about-header-text-hover-shadow);
+    letter-spacing: 10px;
+}
+
+@keyframes float {
+    0% {
+        transform: rotate(45deg) translateY(0) scale(1);
+    }
+    50% {
+        transform: rotate(45deg) translateY(-50px) scale(1.1);
+    }
+    100% {
+        transform: rotate(45deg) translateY(0) scale(1);
+    }
+}
+
+
+/* ============================
+   Contenedor de contenido
+   ============================ */
+section.about-container {
+    background-color: var(--background-color-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--about-border-radius);
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================
+   Estilos de Títulos dentro de content
+   ============================ */
+.about-container h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--links-color);
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.about-container h3::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--links-color);
+}
+
+/* ============================
+   Artículos y párrafos
+   ============================ */
+.about-container .info {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.about-container .info article {
+    background: var(--background-color-secondary);
+    padding: 1.5rem;
+    border-radius: var(--about-border-radius);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-container .info article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.about-container .info article p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-align: justify;
+    margin-bottom: 0.8rem;
+}
+
+/* ============================
+   Listas
+   ============================ */
+.about-container ul {
+    padding-left: 1.5rem;
+}
+
+.about-container ul > li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.about-container ul > li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--links-color);
+}
+
+.nested-list {
+    margin-top: 0.8rem;
+    margin-left: 1.2rem;
+}
+
+.nested-list li {
+    padding-left: 1.2rem;
+}
+
+/* ============================
+   Tags para conceptos clave
+   ============================ */
+.about-container .tag {
+    display: inline-block;
+    background-color: var(--tag-bg-color) !important;
+    color: var(--tag-text-color) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin: 0 4px 4px 0;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.about-container .tag:hover {
+    background-color: rgba(0, 255, 76, 0.726) !important;
+    transform: translateY(-2px);
+}
+
+/* ============================
+   Botones
+   ============================ */
+.buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.about-container .info button {
+    background: linear-gradient(135deg, var(--links-color) 0%, #3b82f6 100%);
+    color: var(--color-allwayswhite);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all var(--about-transition-speed) ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.about-container .info button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Botón “Learn More” (primero) */
+.about-container .info button:first-child {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.about-container .info button:first-child:hover {
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+}
+
+/* ============================
+   Responsive solo del about
+   ============================ */
+@media (max-width: 768px) {
+    .header-text {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+    
+    section.about-container {
+        padding: 25px;
+        margin: 0;
+    }
+    
+    .buttons {
+        flex-direction: column;
+    }
+}

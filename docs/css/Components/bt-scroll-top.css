@@ -1,0 +1,11 @@
+#scrollTop {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    cursor: pointer;
+    background: var(--background-color-secondary);
+    padding: 6px;
+    font-size: 30px;
+}
