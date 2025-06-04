@@ -13,9 +13,11 @@ class User(Base):
      password_hash = Column(String)
      roles = relationship("Role", secondary=user_roles, back_populates="users")
      favorites = relationship("Favorite", back_populates="user", cascade="all, delete", passive_deletes=True)
+     portfolios = relationship("Portfolio", back_populates="user", cascade="all, delete-orphan")
 
      created_at = Column(DateTime(timezone = True), server_default = func.now())
      last_login = Column(DateTime(timezone = True), nullable= True)
+     
 
 
     

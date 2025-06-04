@@ -2,10 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from typing import Generator
-import os
 
 # Conexión a la base de datos
-SQLALCHEMY_DATABASE_URL = "sqlite:///./cryptoweb.db"  # Archivo local .db
+SQLALCHEMY_DATABASE_URL = "sqlite:///./Backend/cryptoweb.db"  # Archivo local .db
 
 # Motor de la base de datos
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})  # connect_args={"check_same_thread": False} solo para SQLite

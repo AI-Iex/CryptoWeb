@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+httpx
+passlib
+pydantic
+pydantic[email]
+PyJWT
+python-dotenv
+SQLAlchemy

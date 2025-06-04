@@ -1,28 +1,25 @@
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 from typing import Optional, List
 from Backend.Schemas.role import RoleRead
 
 class UserLogin(BaseModel):
-    email: str
-    password: str
+    email: EmailStr = Field(example="example@example.com")
+    password: str = Field(example="password")
 
 class UserCreate(BaseModel):
-    username: str
-    email: EmailStr
-    password: str
-    roles: Optional[List[str]] = []
+    username: str = Field(example="Alejandro Example")
+    email: EmailStr = Field(example="example@example.com")
+    password: str = Field(example="password")
+    roles: Optional[List[str]] = Field(default=None, example=["user"])
 
 class UserRead(BaseModel):
-    id: int
-    username: str
-    email: EmailStr
-    roles: List[RoleRead]
+    id: int = Field(example="1")
+    username: str = Field(example="Alejandro Example")
+    roles: List[RoleRead] = Field(example=["user"])
     created_at: datetime
     last_login: Optional[datetime] = None
 
-    # orm_mode = True es una herramienta para leer desde ORMs (los modelos)
-    # Por eso solo se usa en esquemas de salida (UserRead) y no en los de entrada (UserCreate)
     class Config:
         orm_mode = True
 

@@ -1,0 +1,51 @@
+.about-container {
+    background: var(--background-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px 40px 0;
+    padding: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.about-container .image {
+    text-align: right;
+}
+
+.about-container .image img {
+    width: 75%;
+    border-radius: 40px;
+}
+
+.about-container .info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.about-container .info h3 {
+    color: var(--color-white);
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.about-container .info p {
+    color: var(--text-secondary);
+    text-align: justify;
+    font-size: 14px;
+}
+
+.about-container .info button {
+    background: var(--background-color-secondary);
+    color: var(--color-white);
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 120px;
+    transition: all 0.3s ease;
+}
+
+.about-container .info button:hover {
+    background: var(--links-color);
+}

@@ -1,9 +1,6 @@
 from sqlalchemy.orm import Session
-from Backend.Models.user import User
 from Backend.Models.role import Role
-from Backend.Schemas.role import RoleCreate, RoleRead
 from typing import Optional, List
-from datetime import datetime
 
 # Crear un nuevo rol
 def create_role(db: Session, role_name: str) -> Role:

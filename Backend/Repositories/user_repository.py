@@ -10,7 +10,7 @@ def create_user(db: Session, user: UserCreate, hashed_password: str, roles: Opti
         username=user.username,
         email=user.email,
         password_hash=hashed_password,
-        roles=roles or []  # Aquí ya se espera una lista de objetos Role
+        roles=roles or []
     )
 
     db.add(db_user)

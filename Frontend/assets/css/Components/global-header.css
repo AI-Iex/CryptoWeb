@@ -1,0 +1,15 @@
+.global {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 16px 20px;
+}
+
+.global p {
+    font-size: 12px;
+    color: var(--color-white);
+}
+
+.global p span {
+    font-weight: 600;
+}

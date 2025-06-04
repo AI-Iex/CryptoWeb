@@ -4,21 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <!-- Estilos -->
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/Pages/about.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
     <title>CryptoWeb - About</title>
 </head>
 
 <body>
 
+    <!-- Cargador de la página -->
+    <div id="preloader">
+        <div class="logo-loader"></div>
+    </div>
+
+    <!-- Menu móvil -->
     <div class="overlay">
         <button id="closeMenu"><i class="ri-close-circle-line"></i></button>
 
         <div class="nav-links">
             <a href="../index.html">Home</a>
+            <a href="user.html" class="user-leftsection">Profile</a>
             <a href="charts.html">Charts</a>
-            <a href="search.html">Search</a>
+            <a href="fearandgreed.html">Fear & Greed</a>
+            <a href="news.html">News</a>
             <a href="about.html" class="active">About US</a>
+            <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer"> API</a>
         </div>
 
         <div class="social-icons">
@@ -31,32 +43,38 @@
 
     <div class="main">
 
+        <!-- Cabecera -->
         <div class="global">
             <p>Coins: <b id="coins-count">N/A</b></p>
             <p>Exchanges: <b id="exchanges-count">N/A</b></p>
-            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i
-                            class="ri-arrow-down-s-fill"></i></span></span></p>
+            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i class="ri-arrow-down-s-fill"></i></span></span></p>
             <p>24H Vol: <b id="volume">N/A</b></p>
             <p>Dominance: <b id="dominance">BTC N/A% - ETH N/A%</b></p>
         </div>
 
+        <!-- Barra de navegación -->
         <nav class = "main-bar">
+
             <div class="left-section">
                 <button id="openMenu"><i class="ri-menu-line"></i></button>
                 <a class="logo"></a>
                 <div class="nav-links">
                     <a href="../index.html">Home</a>
+                    <a href="user.html" class="user-leftsection">Profile</a>
                     <a href="charts.html">Charts</a>
-                    <a href="search.html">Search</a>
+                    <a href="fearandgreed.html">Fear & Greed</a>
+                    <a href="news.html">News</a>
                     <a href="about.html" class="active">About US</a>
+                    <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer"> API</a>
                 </div>
             </div>
+
             <div class="right-section">
                 <form class="search" id="searchForm">
                     <i class="ri-search-line"></i>
-                    <input type="text" id="searchInput" placeholder="Search for an asset..." required
-                        autocomplete="off">
+                    <input type="text" id="searchInput" placeholder="Search for an asset..." required autocomplete="off">
                 </form>
+
                 <i id="theme-toggle" class="ri-sun-line"></i>
                 <i id="userMenu" class="ri-user-line"></i>
                 <!-- Elemento para usuario logueado -->
@@ -68,17 +86,19 @@
                     </div>
                 </div>
             </div>
+
         </nav>
 
+        <!-- Contenedor Principal del about -->
         <div class="about-container">
             <div class="info">
-                <h3>The [Comapny] Story</h3>
+                <h3>The CryptoWeb Story</h3>
                 <p>
-                    Welcome to AsmrProg, your premier destination for seamless and secure cryptocurrency transactions.
+                    Welcome to CryptoWeb, your premier destination for seamless and secure cryptocurrency transactions.
                     Our mission is to empower individuals and institutions by providing a platform that combines
                     innovation, security, and user-friendly design to meet all your digital asset needs.
                     <br><br>
-                    At AsmrProg, we envision a world where digital currency is accessible to everyone. We strive to
+                    At CryptoWeb, we envision a world where digital currency is accessible to everyone. We strive to
                     bridge the gap between traditional finance and the future of money by offering a platform that
                     simplifies cryptocurrency trading while ensuring the highest standards of security and reliability.
                 </p>
@@ -88,13 +108,14 @@
                 </div>
             </div>
             <div class="image">
-                <img src="/../assets/images/about.jpg" alt="about">
+                <img src="https://images.unsplash.com/photo-1620336655052-b57986f5a26a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="about">
             </div>
         </div>
 
 
     </div>
 
+    <!-- Pie de página -->
     <footer>
         <div class="social-icons">
             <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
@@ -103,9 +124,9 @@
         </div>
     </footer>
 
+    <!-- Botón scroll top -->
     <button onclick="scrollToTop()" id="scrollTop"><i class="ri-arrow-up-s-line"></i></button>
-
-
+    
     <script src="../assets/js/global.js"></script>
     
 </body>

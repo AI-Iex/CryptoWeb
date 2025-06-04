@@ -4,21 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <!-- Estilos -->
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/Pages/charts.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
     <title>CryptoWeb - Charts</title>
 </head>
 
 <body>
 
+    <!-- Cargador de la página -->
+    <div id="preloader">
+        <div class="logo-loader"></div>
+    </div>
+
+    <!-- Menu móvil -->
     <div class="overlay">
         <button id="closeMenu"><i class="ri-close-circle-line"></i></button>
 
         <div class="nav-links">
             <a href="../index.html">Home</a>
+            <a href="user.html" class="user-leftsection">Profile</a>
             <a href="charts.html" class="active">Charts</a>
-            <a href="search.html">Search</a>
+            <a href="fearandgreed.html">Fear & Greed</a>
+            <a href="news.html">News</a>
             <a href="about.html">About US</a>
+            <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer"> API</a>
         </div>
 
         <div class="social-icons">
@@ -31,32 +43,38 @@
 
     <div class="main">
 
+        <!-- Cabecera -->
         <div class="global">
             <p>Coins: <b id="coins-count">N/A</b></p>
             <p>Exchanges: <b id="exchanges-count">N/A</b></p>
-            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i
-                            class="ri-arrow-down-s-fill"></i></span></span></p>
+            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i class="ri-arrow-down-s-fill"></i></span></span></p>
             <p>24H Vol: <b id="volume">N/A</b></p>
             <p>Dominance: <b id="dominance">BTC N/A% - ETH N/A%</b></p>
         </div>
 
+        <!-- Barra de navegación -->
         <nav class = "main-bar">
+
             <div class="left-section">
                 <button id="openMenu"><i class="ri-menu-line"></i></button>
                 <a class="logo"></a>
                 <div class="nav-links">
                     <a href="../index.html">Home</a>
+                    <a href="user.html" class="user-leftsection">Profile</a>
                     <a href="charts.html" class="active">Charts</a>
-                    <a href="search.html">Search</a>
+                    <a href="fearandgreed.html">Fear & Greed</a>
+                    <a href="news.html">News</a>
                     <a href="about.html">About US</a>
+                    <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer"> API</a>
                 </div>
             </div>
+
             <div class="right-section">
                 <form class="search" id="searchForm">
                     <i class="ri-search-line"></i>
-                    <input type="text" id="searchInput" placeholder="Search for an asset..." required
-                        autocomplete="off">
+                    <input type="text" id="searchInput" placeholder="Search for an asset..." required autocomplete="off">
                 </form>
+
                 <i id="theme-toggle" class="ri-sun-line"></i>
                 <i id="userMenu" class="ri-user-line"></i>
                 <!-- Elemento para usuario logueado -->
@@ -68,18 +86,22 @@
                     </div>
                 </div>
             </div>
+
         </nav>
 
+        <!-- Contenedor principal de Chart -->
         <div class="chart-container">
             <div class="tradingview-widget-container" id="chart-widget"></div>
-            <div class="tradingview-widget-copyright hidden"><a href="https://www.tradingview.com/"
-                    rel="noopener nofollow" target="_blank"><span class="white-text">Track all markets on
-                        TradingView</span></a></div>
+            <div class="tradingview-widget-copyright hidden">
+                <a href="https://www.tradingview.com/"
+                    rel="noopener nofollow" target="_blank"><span class="white-text">Track all markets on TradingView</span>
+                </a>
+            </div>
         </div>
-
 
     </div>
 
+    <!-- Pie de página -->
     <footer>
         <div class="social-icons">
             <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
@@ -88,8 +110,8 @@
         </div>
     </footer>
 
+    <!-- Botón scroll top -->
     <button onclick="scrollToTop()" id="scrollTop"><i class="ri-arrow-up-s-line"></i></button>
-
 
     <script src="../assets/js/global.js"></script>
     <script src="../assets/js/chart.js"></script>

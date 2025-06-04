@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/Pages/news.css">
+    <link rel="stylesheet" href="../assets/css/Components/login-container.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <title>CryptoWeb - News</title>
+</head>
+    
+<body>
+
+    <!-- Cargador de la página -->
+    <div id="preloader">
+        <div class="logo-loader"></div>
+    </div>
+
+    <!-- Menu móvil -->
+    <div class="overlay">
+        <button id="closeMenu"><i class="ri-close-circle-line"></i></button>
+
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="user.html" class="user-leftsection">Profile</a>
+            <a href="charts.html">Charts</a>
+            <a href="fearandgreed.html">Fear & Greed</a>
+            <a href="news.html" class="active">News</a>
+            <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer">API</a>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
+            <a href="mailto:alexsastre099@gmail.com"><i class="ri-mail-line"></i></a>
+            <a href="https://github.com/AI-Iex"><i class="ri-github-line"></i></a>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <!-- Cabecera -->
+        <div class="global">
+            <p>Coins: <b id="coins-count">N/A</b></p>
+            <p>Exchanges: <b id="exchanges-count">N/A</b></p>
+            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i class="ri-arrow-down-s-fill"></i></span></span></p>
+            <p>24H Vol: <b id="volume">N/A</b></p>
+            <p>Dominance: <b id="dominance">BTC N/A% - ETH N/A%</b></p>
+        </div>
+
+        <!-- Barra de navegación -->
+        <nav class = "main-bar">
+
+            <div class="left-section">
+                <button id="openMenu"><i class="ri-menu-line"></i></button>
+                <a class="logo"></a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="user.html" class="user-leftsection">Profile</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="fearandgreed.html">Fear & Greed</a>
+                    <a href="news.html" class="active">News</a>
+                    <a href="about.html">About US</a>
+                    <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer"> API</a>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <form class="search" id="searchForm">
+                    <i class="ri-search-line"></i>
+                    <input type="text" id="searchInput" placeholder="Search for an asset..." required autocomplete="off">
+                </form>
+
+                <i id="theme-toggle" class="ri-sun-line"></i>
+                <i id="userMenu" class="ri-user-line"></i>
+                <!-- Elemento para usuario logueado -->
+                <div class="auth-dropdown hidden" id="authDropdown">
+                    <img src="../images/default-avatar.png" class="user-avatar" alt="Usuario">
+                    <div class="dropdown-menu">
+                        <a href="../pages/user.html"><i class="ri-user-line"></i>Profile</a>
+                        <a href="#!" id="logout-btn"><i class="ri-logout-circle-line"></i>Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Contenedor que aparece al no iniciar sesion -->
+        <div class="login-required-container"  id="news-login-message">
+            <p class="login-message">You need to log in.</p>
+            <button onclick="window.location.href='login.html'" class="login-button">
+                <i class="ri-user-line"></i>
+                Log In
+            </button>
+        </div>
+
+        <!-- Contenedor principal para las noticias -->
+        <section class="news-container">
+            <h2>Latest News</h2>
+            <div id="controls">
+                <div class="control-group">
+                    <label for="mode">Mode:</label>
+                    <select id="mode">
+                        <option value="headlines">Headlines by country/category</option>
+                        <option value="topic">Thematic (Crypto/Finance)</option>
+                    </select>
+                </div>
+                <div class="control-group" id="group-headlines">
+                    <label for="country">Country:</label>
+                    <select id="country">
+                        <option value="us">United States</option>
+                        <option value="mx">Mexico</option>
+                        <option value="es">Spain</option>
+                        <option value="ar">Argentina</option>
+                        <option value="cl">Chile</option>
+                    </select>
+                </div>
+                <div class="control-group" id="group-category">
+                    <label for="category">Category:</label>
+                    <select id="category">
+                        <option value="general">General</option>
+                        <option value="business">Business</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="health">Health</option>
+                        <option value="science">Science</option>
+                        <option value="sports">Sports</option>
+                        <option value="technology">Technology</option>
+                    </select>
+                </div>
+                <div class="control-group" id="group-topic" style="display:none">
+                    <label for="topic">Thematic:</label>
+                    <select id="topic">
+                        <option value="crypto">Cryptocurrencies</option>
+                        <option value="finance">Finances</option>
+                    </select>
+                </div>
+                <button id="loadBtn" class="load-more">Refresh News</button>
+            </div>
+
+            <div id="articles" class="articles-grid"></div>
+
+        </section>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="social-icons">
+        <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
+        <a href="mailto:alexsastre099@gmail.com"><i class="ri-mail-line"></i></a>
+        <a href="https://github.com/AI-Iex"><i class="ri-github-line"></i></a>
+        </div>
+    </footer>
+
+    <!-- Botón scroll top -->
+    <button onclick="scrollToTop()" id="scrollTop"><i class="ri-arrow-up-s-line"></i></button>
+
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/news.js"></script>
+
+</body>
+</html>

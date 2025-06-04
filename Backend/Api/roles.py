@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from Backend.Schemas.role import RoleRead, RoleCreate
 from Backend.Services.role_service import (
@@ -40,9 +40,9 @@ def get_role(
     return get_role_by_id_service(db, role_id)
 
 # Borrar un rol por id
-@router.delete("/{role_id}")
+@router.delete("/{role_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_role(
     role_id: int, db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)  # solo admins
 ):
-    return delete_role_by_id_service(db, role_id)
+    delete_role_by_id_service(db, role_id)

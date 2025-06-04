@@ -1,0 +1,357 @@
+/* ==================== MEDIA QUERIES (XXL DEVICES) ==================== */
+@media screen and (max-width: 1400px) {
+    .coin-container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .coin-container .left-section {
+        width: 38%;
+    }
+
+    .coin-container .main-section {
+        width: 59%;
+    }
+
+    .coin-container .right-section {
+        flex-direction: row;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .coin-container .right-section .status {
+        width: 33%;
+    }
+
+    .coin-container .right-section .status > h3,
+    .coin-container .right-section .status:first-child > h3 {
+        margin: 30px 0 20px;
+    }
+}
+
+/* ==================== MEDIA QUERIES (XL DEVICES) ==================== */
+@media screen and (max-width: 1200px) {
+    nav .right-section {
+        width: 40%;
+    }
+
+    .trending .coins-wrapper .container,
+    .trending .nfts-wrapper .container,
+    .tab-content #asset-list,
+    .tab-content #favorites-list,
+    .tab-content #exchange-list {
+        overflow-x: scroll;
+    }
+
+    .trending table,
+    #asset-list table,
+    #favorites-list table,
+    #exchange-list table {
+        width: 150%;
+    }
+
+    table tr td.name-column {
+        max-width: 160px;
+        padding-right: 50px;
+    }
+
+    .about-container .image img {
+        width: 90%;
+    }
+}
+
+/* ==================== MEDIA QUERIES (LARGE DEVICES) ==================== */
+@media screen and (max-width: 949px) {
+    .global{
+        gap: 30px;
+    }
+
+    .global p{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    nav .left-section{
+        gap: 20px;
+    }
+
+    .trending{
+        flex-direction: column;
+        gap: 36px;
+    }
+
+    .trending .coins-wrapper,
+    .trending .nfts-wrapper{
+        width: 100%;
+    }
+
+    footer{
+        width: 100%;
+        padding: 16px 90px;
+    }
+
+    .tab-content #category-list,
+    .tab-content #company-list{
+        overflow-x: scroll;
+    }
+
+    .tab-content #category-list table,
+    .tab-content #company-list table{
+        width: 150%;
+    }
+
+    #asset-list table,
+    #favorites-list table,
+    #exchange-list table{
+        width: 200%;
+    }
+
+    .search-container{
+        flex-wrap: wrap;
+    }
+
+    .search-container .item:nth-child(1),
+    .search-container .item:nth-child(2){
+        width: 48%;
+    }
+
+    .search-container .item:nth-child(3){
+        width: 100%;
+    }
+
+    .search-container .item:nth-child(3) h4{
+        margin: 10px 0 20px;
+        border-top: 1px dashed var(--border-color);
+        padding-top: 20px;
+    }
+
+    .about-container{
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+
+    .about-container .image{
+        text-align: center;
+    }
+
+    .about-container .image img{
+        width: 60%;
+    }
+
+    .coin-container .left-section{
+        width: 100%;
+    }
+
+    .coin-container .main-section{
+        width: 100%;
+        height: 50vh;
+    }
+
+    .coin-container .right-section{
+        flex-wrap: wrap;
+    }
+
+    .coin-container .right-section .status:first-child{
+        width: 100%;
+    }
+
+    .coin-container .right-section .status{
+        width: 48%;
+    }
+
+    .coin-container .right-section > h3{
+        margin-top: 10px;
+    }
+
+    #openMenu {
+        display: flex !important; /* Mostrar menu movil */
+        margin-left: auto;
+    }
+    
+    nav .right-section {
+        width: 100%;
+        order: 2;
+        justify-content: flex-end;
+    }
+    nav .left-section .nav-links {
+        display: none;
+    }
+      .fear-and-greed-container {
+  margin: 1rem auto;
+  padding: 0 1rem;
+  width: 100%;
+  }
+}
+
+/* ==================== MEDIA QUERIES (MEDIUM DEVICES) ==================== */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 1.5rem 2rem;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+        margin-right: auto;
+    }
+
+    nav .right-section {
+        width: 100%;
+        order: 2;
+        justify-content: flex-end;
+    }
+
+    nav .left-section .nav-links {
+        display: none;
+    }
+
+    #openMenu {
+        display: flex;
+    }
+
+    .global p:last-child {
+        display: none;
+    }
+
+    .tab-container .tabs {
+        flex-wrap: wrap;
+        gap: 10px 0;
+    }
+
+    .chart-container {
+        height: 80vh;
+    }
+
+    .search-container .item:not(:first-child) h4 {
+        margin: 10px 0 20px;
+        border-top: 1px dashed var(--border-color);
+        padding-top: 20px;
+    }
+
+    .coin-container .right-section .status {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+
+  .main-bar .search {
+    width: 80%;
+   
+    margin: 0 auto; 
+  }
+
+  .main-bar .search input {
+    width: 100%;
+  }
+   
+}
+
+
+/* ==================== MEDIA QUERIES (SMALL DEVICES) ==================== */
+@media screen and (max-width: 480px) {
+    
+    .global p:last-child{
+        display: none;
+    }
+
+    nav.main-bar {
+        position: relative;
+        padding-bottom: 50px;
+    }
+
+    .main-bar .right-section .search {
+        position: absolute;          
+        bottom: 0;                   
+        left: 0;
+        width: 100%;
+        margin: 0;
+    }
+    
+    .main-bar .right-section {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .tab-container .tabs{
+        flex-wrap: wrap;
+        gap: 10px 0;
+    }
+
+    .tab-container .tab-button{
+        width: 50%;
+    }
+
+    #asset-list table,
+    #favorites-list table,
+    #exchange-list table,
+    .tab-content #category-list table{
+        width: 300%;
+    }
+
+    .tab-content #company-list table{
+        width: 250%;
+    }
+
+    .tab-content #company-list table tr td.name-column{
+        width: 120px;
+    }
+
+    footer{
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .chart-container{
+        height: 80vh;
+    }
+
+    .search-container .item:nth-child(1),
+    .search-container .item:nth-child(2){
+        width: 100%;
+    }
+
+    .search-container .item:not(:first-child) h4{
+        margin: 10px 0 20px;
+        border-top: 1px dashed var(--border-color);
+        padding-top: 20px;
+    }
+
+    .about-container .image img{
+        width: 100%;
+    }
+
+    .coin-container .main-section {
+        width: 100% !important;
+        margin: 0 !important;
+        height: 55vh !important;
+    }
+    .coin-container .left-section {
+        width: 100% !important;
+    }
+    .coin-container .right-section .status h3 {
+        text-align: center !important;
+        width: 100% !important;
+        padding: 0 10px !important;
+        margin: 0 0 15px 0 !important;
+    }
+
+    .coin-container .right-section {
+        display: grid !important;
+        gap: 15px;
+        width: 100% !important;
+    }
+
+    .coin-container .right-section .status:nth-child(3) {
+        margin-top: 10px !important;
+    }
+
+    .coin-container .status .item {
+        text-align: center !important;
+        align-items: center !important;
+    }
+}

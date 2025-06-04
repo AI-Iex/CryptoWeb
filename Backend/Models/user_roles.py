@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, ForeignKey, Integer
+from sqlalchemy import Table, Column, ForeignKey
 from Backend.db.session import Base
 
 user_roles = Table(

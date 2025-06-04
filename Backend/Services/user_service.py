@@ -7,7 +7,7 @@ from Backend.Schemas.user import UserCreate, UserUpdate, UserRead
 from Backend.Models.user import User
 from Backend.Core.security import get_password_hash, verify_password
 from sqlalchemy.orm import Session
-from typing import Optional, List
+from typing import  List
 import logging
 from fastapi import HTTPException, status
 from sqlalchemy.exc import SQLAlchemyError
@@ -15,6 +15,7 @@ from Backend.Models.role import Role
 from Backend.Models.user import User
 from Backend.Schemas.user import UserCreate
 from Backend.Repositories.user_repository import create_user, get_user_by_email
+from pydantic import EmailStr
 
 # Configurar el logger
 logger = logging.getLogger(__name__)
@@ -25,6 +26,12 @@ def create_new_user_service(db: Session, user: UserCreate) -> User:
         if get_user_by_email(db, user.email):
             raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                                 detail="Email already registered")
+        
+         # Validación: impedir asignación de rol admin
+        forbidden_roles = {"admin"}
+        if user.roles and any(role in forbidden_roles for role in user.roles):
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                                detail="Role 'admin' cannot be assigned during registration")
 
         # 2) Carga objetos Role desde DB
         roles_to_assign: List[Role] = []
@@ -68,12 +75,10 @@ def create_new_user_service(db: Session, user: UserCreate) -> User:
                             detail="Internal server error")
 
     
-def login_user_service(db: Session, email: str, password: str) -> User:
+def login_user_service(db: Session, email: EmailStr, password: str) -> User:
     user = get_user_by_email(db, email)
-    if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="There is not user associated with this email")
-    if not verify_password(password, user.password_hash):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password")
+    if not user or not verify_password(password, user.password_hash): 
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect credentials")
 
     update_last_login_service(db, user.id)
     return user
@@ -142,15 +147,10 @@ def update_user_service(db: Session, user_id: int, user_data: UserUpdate) -> Use
         raise HTTPException(status_code=500, detail="Internal server error")
 
 def delete_user_service(db: Session, user_id: int):
-    try:
-        user = get_user_by_id(db=db, user_id=user_id)
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-        deleted = delete_user(db=db, user_id=user_id)
+        get_user_by_id_service(db=db, user_id=user_id)
         
-    except SQLAlchemyError as e:
-        logger.error(f"Database error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Database error")
+        delete_user(db=db, user_id=user_id)
+        
 
 def update_last_login_service(db: Session, user_id: int) -> User:
     user = update_user_last_login(db=db, user_id=user_id)

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 from Backend.Repositories.role_repository import (
     create_role,
     get_all_roles,
@@ -25,7 +25,5 @@ def get_role_by_id_service(db: Session, role_id: int) -> Role:
     return role
 
 def delete_role_by_id_service(db: Session, role_id: int):
-    success = delete_role_by_id(db, role_id)
-    if not success:
-        raise HTTPException(status_code=404, detail="Role not found")
-    return {"message": "Role deleted successfully"}
+    get_role_by_id_service(db, role_id)
+    delete_role_by_id(db, role_id)

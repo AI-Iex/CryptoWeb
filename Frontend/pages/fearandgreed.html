@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/Pages/fear-and-greed.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <title>CryptoWeb - FearAndGreed</title>
+</head>
+
+<body>
+
+    <!-- Cargador de la página -->
+    <div id="preloader">
+        <div class="logo-loader"></div>
+    </div>
+
+    <!-- Menu móvil -->
+    <div class="overlay">
+        <button id="closeMenu"><i class="ri-close-circle-line"></i></button>
+
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="user.html" class="user-leftsection">Profile</a>
+            <a href="charts.html">Charts</a>
+            <a href="fearandgreed.html" class="active">Fear & Greed </a>
+           <a href="news.html">News</a>
+            <a href="about.html">About US</a>
+            <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer"> API</a>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alexsastre099@gmail.com"><i class="ri-mail-line"></i></a>
+            <a href="https://github.com/AI-Iex"><i class="ri-github-line"></i></a>
+        </div>
+
+    </div>
+
+    <div class="main">
+
+        <!-- Cabecera -->
+        <div class="global">
+            <p>Coins: <b id="coins-count">N/A</b></p>
+            <p>Exchanges: <b id="exchanges-count">N/A</b></p>
+            <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i class="ri-arrow-down-s-fill"></i></span></span></p>
+            <p>24H Vol: <b id="volume">N/A</b></p>
+            <p>Dominance: <b id="dominance">BTC N/A% - ETH N/A%</b></p>
+        </div>
+
+        <!-- Barra de navegación -->
+        <nav class = "main-bar">
+
+            <div class="left-section">
+                <button id="openMenu"><i class="ri-menu-line"></i></button>
+                <a class="logo"></a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="user.html" class="user-leftsection">Profile</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="fearandgreed.html" class="active">Fear & Greed</a>
+                    <a href="news.html">News</a>
+                    <a href="about.html">About US</a>
+                    <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noopener noreferrer"> API</a>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <form class="search" id="searchForm">
+                    <i class="ri-search-line"></i>
+                    <input type="text" id="searchInput" placeholder="Search for an asset..." required autocomplete="off">
+                </form>
+
+                <i id="theme-toggle" class="ri-sun-line"></i>
+                <i id="userMenu" class="ri-user-line"></i>
+                <!-- Elemento para usuario logueado -->
+                <div class="auth-dropdown hidden" id="authDropdown">
+                    <img src="../images/default-avatar.png" class="user-avatar" alt="Usuario">
+                    <div class="dropdown-menu">
+                        <a href="../pages/user.html"><i class="ri-user-line"></i>Profile</a>
+                        <a href="#!" id="logout-btn"><i class="ri-logout-circle-line"></i>Log Out</a>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
+        <!-- Sección Fear & Greed Index -->
+        <div class="fear-and-greed-container">
+            <div class="fear-greed-card">
+                <div class="fear-greed-header">
+                    <h2>Crypto Fear & Greed Index</h2>
+                    <p>Last updated: <span id="last-updated">Loading...</span></p>
+                </div>
+                
+                <div class="fear-greed-content">
+                    <div class="fear-greed-visual">
+
+                        <!-- Circulo visual del valor actual -->
+                        <div class="index-display">
+                            <div class="index-visual">
+                                <svg class="progress-ring" width="220" height="220">
+                                    <circle class="progress-ring-bg" r="90" cx="110" cy="110"></circle>
+                                    <circle class="progress-ring-fill" r="90" cx="110" cy="110"></circle>
+                                </svg>
+                                <div class="index-circle-inner">
+                                    <span id="index-value">00</span>
+                                    <div class="index-classification" id="index-classification">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Texto de explicación -->
+                        <div class="index-text">
+                            <div class="index-description">
+                                The Crypto Fear & Greed Index measures the sentiment of the cryptocurrency market. 
+                                A low value indicates fear, while a high value indicates greed. This helps investors 
+                                understand market emotions and make informed decisions.
+                            </div>
+                        </div>
+                        
+                        <!-- Contenedor de la escala -->
+                        <div class="index-scale">
+                            <div class="scale-item">0 - Extreme Fear</div>
+                            <div class="scale-item">25 - Fear</div>
+                            <div class="scale-item">50 - Neutral</div>
+                            <div class="scale-item">75 - Greed</div>
+                            <div class="scale-item">100 - Extreme Greed</div>
+                        </div>
+                        
+                        <!-- Barra de progresión -->
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Tarjetas del anterior -->
+                    <div class="fear-greed-history">
+                        <div class="history-header">
+                            <h4>Historical Values</h4>
+                        </div>
+                        <div class="history-cards" id="history-cards">
+                        </div>
+                    </div>
+
+                    <!-- Gráfica del histórico -->
+                    <div class="fear-greed-chart-container">
+                        <div class="chart-header">
+                            <h4>Historical Trend</h4>
+                            <div class="chart-options">
+                                <button class="chart-btn active" data-days="7">7 Days</button>
+                                <button class="chart-btn" data-days="30">30 Days</button>
+                                <button class="chart-btn" data-days="90">90 Days</button>
+                            </div>
+                        </div>
+                        <canvas id="fearGreedChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/alexsastre/"><i class="ri-linkedin-line"></i></a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alexsastre099@gmail.com"><i class="ri-mail-line"></i></a>
+            <a href="https://github.com/AI-Iex"><i class="ri-github-line"></i></a>
+        </div>
+    </footer>
+
+    <!-- Botón scroll top -->
+    <button onclick="scrollToTop()" id="scrollTop"><i class="ri-arrow-up-s-line"></i></button>
+    
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/fearandgreed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

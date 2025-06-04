@@ -101,7 +101,7 @@ function displayCoinInfo(coin) {
     const coinInfo = document.querySelector('.coin-info');
     const rightSec = document.querySelector('.coin-container .right-section');
     const coinDesc = document.getElementById('coin-desc-p');
-    const token = localStorage.getItem('access_token');
+    const token = checkAccessTokenValidity();
 
     coinInfo.innerHTML = `
         <div class="logo">

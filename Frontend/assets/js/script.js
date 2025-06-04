@@ -1,3 +1,6 @@
+// Base API URL
+ const API_BASE = 'http://localhost:8000';
+
 const tabDataLoaded = {
     tab1: false,
     tabFavorites: false,
@@ -7,166 +10,146 @@ const tabDataLoaded = {
 };
 
 async function openTab(event, tabName) {
-    const tabContent = document.querySelectorAll(".tab-content");
-    const tabButtons = document.querySelectorAll(".tab-button");
-    const token = localStorage.getItem('access_token');
-    const loginMsg = document.getElementById('login-message');
-    const list = document.getElementById('favorites-list');
-    const spinner = document.getElementById('favorites-list-spinner');
-    const error = document.getElementById('favorites-list-error');
-    const exlogin = document.getElementById('tab2-login-message');
-    const catlogin = document.getElementById('tab3-login-message');
-    const holdlogin = document.getElementById('tab4-login-message');
+  // Hide all contents and deactivate buttons
+  document.querySelectorAll(".tab-content").forEach(c => c.style.display = 'none');
+  document.querySelectorAll(".tab-button").forEach(b => b.classList.remove('active'));
+  
+  // Leer el token
+  const token = checkAccessTokenValidity();
 
-    tabContent.forEach(content => content.style.display = "none");
-    tabButtons.forEach(button => button.classList.remove("active"));
+  // Show target
+  document.getElementById(tabName).style.display = 'block';
+  event.currentTarget.classList.add('active');
 
-    document.getElementById(tabName).style.display = "block";
-    event.currentTarget.classList.add("active");
+  if (!tabDataLoaded[tabName]) {
+    switch (tabName) {
+      case 'tab1':
+        await fetchAndDisplay(
+          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true',
+          ['asset-list'], displayAssets, 'tab1', 'Crypto_Data'
+        );
+        break;
 
-    if (!tabDataLoaded[tabName]) {
-        switch (tabName) {
-            case 'tab1':
-                await fetchAndDisplay(
-                    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true',
-                    ['asset-list'], displayAssets, tabName, 'Crypto_Data'
-                );
-                break;
-
-            case 'tabFavorites':
-                // If the user is not loged in, appears the log-in menu
-                if (!token) {
-                    loginMsg.style.display = 'block';
-                    list.style.display = 'none';
-                    spinner.style.display = 'none';
-                    error.style.display = 'none';
-                    break;
-                } 
-                else
-                {
-                    loginMsg.style.display = 'none';
-                    list.style.display = '';
-                }
-                
-                // Recuperar favoritos del backend
-                await fetchFavorites();
-                if (userFavorites.length === 0) {
-                    document.getElementById('favorites-list').innerHTML = '<p>No tienes criptomonedas favoritas.</p>';
-                    tabDataLoaded['tabFavorites'] = true;
-                    break;
-                }
-
-                // Construir URL con ids
-                const ids = userFavorites.join(',');
-                const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&sparkline=true`;
-                await fetchAndDisplay(url, ['favorites-list'], displayFavoriteAssets, 'tabFavorites', 'Favorites_Data');
-                break;
-
-            case 'tab2':
-                // If the user is not loged in, appears the log-in menu
-                if (!token) {
-                    exlogin.style.display = 'block';
-                    break;
-                } 
-                else
-                {
-                    exlogin.style.display = 'none';
-                }
-
-                await fetchAndDisplay(
-                    'https://api.coingecko.com/api/v3/exchanges',
-                    ['exchange-list'], displayExchanges, tabName, 'Exchanges_Data'
-                );
-                break;
-
-            case 'tab3':
-                 // If the user is not loged in, appears the log-in menu
-                if (!token) {
-                    catlogin.style.display = 'block';
-                    break;
-                } 
-                else
-                {
-                    catlogin.style.display = 'none';
-                }
-
-                await fetchAndDisplay(
-                    'https://api.coingecko.com/api/v3/coins/categories',
-                    ['category-list'], displayCategories, tabName, 'Categories_Data'
-                );
-                break;
-
-            case 'tab4':
-                 // If the user is not loged in, appears the log-in menu
-                if (!token) {
-                    holdlogin.style.display = 'block';
-                    break;
-                } 
-                else
-                {
-                    holdlogin.style.display = 'none';
-                }
-
-                await fetchAndDisplay(
-                    'https://api.coingecko.com/api/v3/companies/public_treasury/bitcoin',
-                    ['company-list'], displayCompanies, tabName, 'Companies_Data'
-                );
-                break;
+      case 'tabFavorites':
+        if (!token) {
+          // Show login prompt
+          document.getElementById('login-message').style.display = 'block';
+        } else {
+          document.getElementById('login-message').style.display = 'none';
+          await fetchAndDisplayFavorites();
         }
+        break;
+
+      case 'tab2':
+        if (!token) {
+          document.getElementById('tab2-login-message').style.display = 'block';
+        } else {
+          document.getElementById('tab2-login-message').style.display = 'none';
+          await fetchAndDisplay(
+            'https://api.coingecko.com/api/v3/exchanges',
+            ['exchange-list'], displayExchanges, 'tab2', 'Exchanges_Data'
+          );
+        }
+        break;
+
+      case 'tab3':
+        if (!token) {
+          document.getElementById('tab3-login-message').style.display = 'block';
+        } else {
+          document.getElementById('tab3-login-message').style.display = 'none';
+          await fetchAndDisplay(
+            'https://api.coingecko.com/api/v3/coins/categories',
+            ['category-list'], displayCategories, 'tab3', 'Categories_Data'
+          );
+        }
+        break;
+
+      case 'tab4':
+        if (!token) {
+          document.getElementById('tab4-login-message').style.display = 'block';
+        } else {
+          document.getElementById('tab4-login-message').style.display = 'none';
+          await fetchAndDisplay(
+            'https://api.coingecko.com/api/v3/companies/public_treasury/bitcoin',
+            ['company-list'], displayCompanies, 'tab4', 'Companies_Data'
+          );
+        }
+        break;
     }
+    tabDataLoaded[tabName] = true;
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(".tab-button").click();
-    fetchData();
+document.addEventListener('DOMContentLoaded', async () => {
+  // Trigger first tab
+  document.querySelector('.tab-button').click();
+  // Fetch common data
+  await Promise.all([
+    fetchAndDisplay(
+      'https://api.coingecko.com/api/v3/search/trending',
+      ['coins-list', 'nfts-list'], displayTrends, null, 'Trending_data'
+    ),
+    fetchAndDisplay(
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true',
+      ['asset-list'], displayAssets, null, 'Crypto_Data'
+    )
+  ]);
 });
 
-async function fetchData() {
-    await Promise.all([
-        fetchAndDisplay(
-            'https://api.coingecko.com/api/v3/search/trending',
-            ['coins-list', 'nfts-list'], displayTrends, null, 'Trending_data'
-        ),
-        fetchAndDisplay(
-            'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true',
-            ['asset-list'], displayAssets, null, 'Crypto_Data'
-        ),
-    ]);
+// General fetch/display function, with optional cache skipping
+async function fetchAndDisplay(url, idsToToggle, displayFn, tabName = null, localKey = null, skipCache = false) {
+  // Show spinners
+  idsToToggle.forEach(id => toggleSpinner(id, `${id}-spinner`, true));
+
+  let data;
+  if (!skipCache && localKey) {
+    data = getLocalStorageData(localKey);
+  }
+
+  if (!data) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('API Error');
+      data = await res.json();
+      if (!skipCache && localKey) setLocalStorageData(localKey, data);
+    } catch (err) {
+      console.error(err);
+      idsToToggle.forEach(id => toggleSpinner(id, `${id}-spinner`, false));
+      idsToToggle.forEach(id => document.getElementById(`${id}-error`).style.display = 'block');
+      if (tabName) tabDataLoaded[tabName] = false;
+      return;
+    }
+  }
+
+  idsToToggle.forEach(id => toggleSpinner(id, `${id}-spinner`, false));
+  displayFn(data);
+  if (tabName) tabDataLoaded[tabName] = true;
 }
 
-async function fetchAndDisplay(url, idsToToggle, displayFunction, tabName = null, localKey) {
-    idsToToggle.forEach(id => {
-        const errorElement = document.getElementById(`${id}-error`);
-        if (errorElement) {
-            errorElement.style.display = 'none';
-        }
-        toggleSpinner(id, `${id}-spinner`, true);
-    });
+async function fetchAndDisplayFavorites() {
+  const token = checkAccessTokenValidity();
+  const list = document.getElementById('favorites-list');
+  const spinner = document.getElementById('favorites-list-spinner');
+  const error = document.getElementById('favorites-list-error');
 
-    const localStorageKey = localKey;
-    const localData = getLocalStorageData(localStorageKey);
-
-    if (localData) {
-        idsToToggle.forEach(id => toggleSpinner(id, `${id}-spinner`, false));
-        displayFunction(localData);
-        if (tabName) tabDataLoaded[tabName] = true;
+  toggleSpinner('favorites-list', 'favorites-list-spinner', true);
+  try {
+    const res = await fetch(`${API_BASE}/favorites/`, { headers: { 'Authorization': `Bearer ${token}` } });
+    if (!res.ok) throw new Error('Fav Load Error');
+    const favorites = await res.json();
+    if (!favorites.length) {
+      list.innerHTML = '<p style="color: red;">You dont have favorite cryptocurrencies</p>';
     } else {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('API limit reached');
-            const data = await response.json();
-            idsToToggle.forEach(id => toggleSpinner(id, `${id}-spinner`, false));
-            displayFunction(data);
-            setLocalStorageData(localStorageKey, data);
-            if (tabName) tabDataLoaded[tabName] = true;
-        } catch (error) {
-            idsToToggle.forEach(id => {
-                toggleSpinner(id, `${id}-spinner`, false);
-                document.getElementById(`${id}-error`).style.display = 'block';
-            });
-            if (tabName) tabDataLoaded[tabName] = false;
-        }
+      const ids = favorites.map(f => f.coin_id).join(',');
+      const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&sparkline=true`;
+      await fetchAndDisplay(url, ['favorites-list'], displayFavoriteAssets, 'tabFavorites', null, true);
     }
+  } catch (err) {
+    console.error(err);
+    error.style.display = 'block';
+  } finally {
+    toggleSpinner('favorites-list', 'favorites-list-spinner', false);
+  }
 }
 
 function displayTrends(data) {
@@ -177,12 +160,14 @@ function displayTrends(data) {
 function displayTrendCoins(coins) {
     const coinsList = document.getElementById('coins-list');
     coinsList.innerHTML = '';
-    const table = createTable(['Coin', 'Price', 'Market Cap', 'Volume', '24h%','']);
+    const table = createTable(['Coin', 'Price (BTC)', 'Market Cap', 'Volume', '24h%','']);
+    table.classList.add('assets-table');
+
 
     coins.forEach(coin => {
         const coinData = coin.item;
         const row = document.createElement('tr');
-        const token = localStorage.getItem('access_token');
+        const token = checkAccessTokenValidity();
         row.innerHTML = `
             <td class="name-column table-fixed-column">
               <img src="${coinData.thumb}" alt="${coinData.name}"> ${coinData.name}
@@ -241,22 +226,23 @@ function displayAssets(data) {
     const cryptoList = document.getElementById('asset-list');
     cryptoList.innerHTML = '';
     const table = createTable(['Rank', 'Coin', 'Price', '24h Price', '24h Price %', 'Total Vol', 'Market Cap', 'Last 7 Days'], 1);
+    table.classList.add('assets-table');
 
     const sparklineData = [];
     data.forEach(asset => {
         const row = document.createElement('tr');
-        const token = localStorage.getItem('access_token');
+        const token = checkAccessTokenValidity();
         row.innerHTML = `
             <td class="rank">${asset.market_cap_rank}</td>
             <td class="name-column table-fixed-column">
               <img src="${asset.image}" alt="${asset.name}"> ${asset.name}
               <span>(${asset.symbol.toUpperCase()})</span>
             </td>
-            <td>$${asset.current_price.toFixed(2)}</td>
-            <td class="${asset.price_change_percentage_24h >= 0 ? 'green' : 'red'}">$${asset.price_change_24h.toFixed(2)}</td>
+            <td>${asset.current_price.toFixed(2)} $</td>
+            <td class="${asset.price_change_percentage_24h >= 0 ? 'green' : 'red'}">${asset.price_change_24h.toFixed(2)} $</td>
             <td class="${asset.price_change_percentage_24h >= 0 ? 'green' : 'red'}">${asset.price_change_percentage_24h.toFixed(2)}%</td>
-            <td>$${asset.total_volume.toLocaleString()}</td>
-            <td>$${asset.market_cap.toLocaleString()}</td>
+            <td>${asset.total_volume.toLocaleString()} $</td>
+            <td>${asset.market_cap.toLocaleString()} $</td>
             <td><canvas id="chart-${asset.id}" width="100" height="50"></canvas></td>
             <td>
                 ${ token
@@ -307,35 +293,37 @@ function displayFavoriteAssets(data) {
     const container = document.getElementById('favorites-list');
     container.innerHTML = '';
     const table = createTable(['Rank', 'Coin', 'Price', '24h Price', '24h Price %', 'Total Vol', 'Market Cap', 'Last 7 Days'], 1);
+    table.classList.add('assets-table');
 
     const sparkData = [];
     data.forEach(asset => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td class="rank">${asset.market_cap_rank}</td>
-            <td class="name-column table-fixed-column">
-              <img src="${asset.image}" alt="${asset.name}"> ${asset.name}
-              <span>(${asset.symbol.toUpperCase()})</span>
-            </td>
-            <td>$${asset.current_price.toFixed(2)}</td>
-            <td class="${asset.price_change_percentage_24h>=0?'green':'red'}">
-              $${asset.price_change_24h.toFixed(2)}
-            </td>
-            <td class="${asset.price_change_percentage_24h>=0?'green':'red'}">
-              ${asset.price_change_percentage_24h.toFixed(2)}%
-            </td>
-            <td>$${asset.total_volume.toLocaleString()}</td>
-            <td>$${asset.market_cap.toLocaleString()}</td>
-            <td><canvas id="fav-chart-${asset.id}" width="100" height="50"></canvas></td>
-            <td>
-              <div class="fav-container">
-                <button class="fav-btn" data-coin-id="${asset.id}"
-                        onclick="event.stopPropagation();toggleFavorite('${asset.id}', this)">
-                  <i class="ri-heart-fill"></i>
-                </button>
-              </div>
-            </td>
-        `;
+    const row = document.createElement('tr');
+      row.innerHTML = `
+          <td class="rank">${asset.market_cap_rank}</td>
+          <td class="name-column table-fixed-column">
+            <img src="${asset.image}" alt="${asset.name}"> ${asset.name}
+            <span>(${asset.symbol.toUpperCase()})</span>
+          </td>
+          <td>${asset.current_price.toFixed(2)} $</td>
+          <td class="${asset.price_change_percentage_24h>=0?'green':'red'}">
+            ${asset.price_change_24h.toFixed(2)} $
+          </td>
+          <td class="${asset.price_change_percentage_24h>=0?'green':'red'}">
+            ${asset.price_change_percentage_24h.toFixed(2)}%
+          </td>
+          <td>${asset.total_volume.toLocaleString()} $</td>
+          <td>${asset.market_cap.toLocaleString()} $</td>
+          <td><canvas id="fav-chart-${asset.id}" width="100" height="50"></canvas></td>
+          <td>
+            <div class="fav-container">
+              <button class="fav-btn" data-coin-id="${asset.id}"
+                      onclick="event.stopPropagation();toggleFavorite('${asset.id}', this)">
+                <i class="ri-heart-fill"></i>
+              </button>
+            </div>
+          </td>
+          
+      `;
         row.onclick = () => window.location.href = `pages/coin.html?coin=${asset.id}`;
         table.appendChild(row);
         sparkData.push({
@@ -427,19 +415,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     await fetchFavorites();
     // 1.2) Abrir la primera pestaña (dispara displayAssets con userFavorites ya cargado)
     document.querySelector(".tab-button").click();
-    // 1.3) Y luego el resto de fetches
-    fetchData();
 });
 
-const API_URL = 'http://localhost:8000/favorites/';
 let userFavorites = [];
 
 // 1) fetchFavorites: actualiza userFavorites y los iconos
 async function fetchFavorites() {
-    const token = localStorage.getItem('access_token');
+    const token = checkAccessTokenValidity();
     if (!token) return;
     try {
-        const res = await fetch(`${API_URL}?_=${Date.now()}`, {
+        const res = await fetch(`${API_BASE}/favorites/?_=${Date.now()}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (!res.ok) throw new Error();
@@ -458,40 +443,43 @@ async function fetchFavorites() {
 
 // 2) toggleFavorite: invalidar cache de favoritos y recargar si estamos en la pestaña
 async function toggleFavorite(coinId, button) {
-    // Si necesitas stopPropagation en coin.html, lo dejas inline:
-    // onclick="event.stopPropagation(); toggleFavorite('…', this)"
+  const token = checkAccessTokenValidity();
     
-    const token = localStorage.getItem('access_token');
-    if (!token) {
-        alert('Debes iniciar sesión.');
-        return;
-    }
+  if (!token) {
+    alert('Debes iniciar sesión para usar favoritos');
+    window.location.href = 'pages/login.html';
+    return;
+  }
 
-    const isFav = userFavorites.includes(coinId);
-    const method = isFav ? 'DELETE' : 'POST';
-    const url = isFav ? `${API_URL}${coinId}` : API_URL;
+  const isFav = userFavorites.includes(coinId);
+  const method = isFav ? 'DELETE' : 'POST';
+  const url = isFav 
+    ? `${API_BASE}/favorites/${coinId}`
+    : `${API_BASE}/favorites/`;
 
-    let response;
-    try {
-        response = await fetch(url, {
-            method,
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: !isFav ? JSON.stringify({ coin_id: coinId }) : null
-        });
-    } catch (networkError) {
-        console.error('Fetch error:', networkError);
-        alert(isFav ? 'Error eliminando favorito' : 'Error guardando favorito');
-        return;
-    }
+  try {
+    // Mostrar feedback inmediato en la UI
+    const icon = button.querySelector('i');
+    icon.className = isFav ? 'ri-heart-line' : 'ri-heart-fill';
+    
+    const response = await fetch(url, {
+      method,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: !isFav ? JSON.stringify({ coin_id: coinId }) : null
+    });
 
     if (!response.ok) {
-        console.error('Server responded with', response.status);
-        alert(isFav ? 'Error eliminando favorito' : 'Error guardando favorito');
-        return;
+      // Revertir cambios si falla
+      icon.className = isFav ? 'ri-heart-fill' : 'ri-heart-line';
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    
+  }catch{
+
+  }
 
     // --- A partir de aquí, la petición fue OK ---
     try {
