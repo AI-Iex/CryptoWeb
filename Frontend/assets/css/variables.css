@@ -34,7 +34,7 @@
 
     --links-color: #1565C0;
 
-    --logo-url: url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/images/light-logo.gif');
+    --logo-url: url('../../../images/light-logo.gif');
 }
 
 #dark-theme {
@@ -68,5 +68,5 @@
 
     --links-color: #1565C0;
 
-    --logo-url: url('C:/Users/Usuario/Documents/CryptoWeb/Frontend/images/dark-logo.gif');
+    --logo-url: url('../../../images/dark-logo.gif');
 }
