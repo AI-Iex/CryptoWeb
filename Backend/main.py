@@ -48,6 +48,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def root():
+    return {"message": "CryptoWeb API is running"}
+
 # Incluir router de auth (Autenticación)
 app.include_router(auth.router)
 app.include_router(users.router)
