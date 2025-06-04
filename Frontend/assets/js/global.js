@@ -5,6 +5,7 @@ const marketCap = document.getElementById('marketCap');
 const marketCapChangeElement = document.getElementById('marketCapChange');
 const volume = document.getElementById('volume');
 const dominance = document.getElementById('dominance');
+const API_BASE_URL = 'https://cryptoweb-2lnu.onrender.com';
 
 
 // Evento window.load: ocultar preloader y mostrar contenido principal
@@ -56,15 +57,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 2 Formulario de búsqueda
-  const form = document.getElementById('searchForm');
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const query = document.getElementById('searchInput').value.trim();
-    if (!query) return;
-    // Redirigir a search.html con el parámetro query
-    window.location.href = `search.html?query=${query}`;
-  });
+// 2 Formulario de búsqueda
+const form = document.getElementById('searchForm');
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const query = document.getElementById('searchInput').value.trim();
+  if (!query) return;
+
+  // Detectar si estamos en index.html o en la raíz
+  let searchPath;
+  if (
+    window.location.pathname.endsWith('index.html') ||
+    window.location.pathname === '/' ||
+    window.location.pathname === '/index'
+  ) {
+    searchPath = 'pages/search.html';
+  } else {
+    searchPath = 'search.html';
+  }
+
+  // Redirigir con el parámetro query
+  window.location.href = `${searchPath}?query=${encodeURIComponent(query)}`;
+});
 
   // 3 Menú móvil (abrir/cerrar)
   const openMenuBtn = document.getElementById('openMenu');

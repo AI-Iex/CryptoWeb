@@ -99,7 +99,7 @@ async function fetchHeadlines() {
   const topic    = topicSelect.value;     
 
   const params = new URLSearchParams({ mode, country, category, topic });
-  const url    = `http://localhost:8000/news?${params.toString()}`;
+  const url    = `${API_BASE_URL}/news?${params.toString()}`;
 
   articles.innerHTML = '<p>Cargando noticias…</p>';
 

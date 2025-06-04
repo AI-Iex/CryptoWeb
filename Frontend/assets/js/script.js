@@ -1,5 +1,5 @@
 // Base API URL
- const API_BASE = 'http://localhost:8000';
+ const API_BASE = API_BASE_URL;
 
 const tabDataLoaded = {
     tab1: false,

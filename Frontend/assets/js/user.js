@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load initial portfolios from backend
   async function loadPortfolios() {
     try {
-      const res = await fetch('http://localhost:8000/portfolios/', {
+      const res = await fetch(`${API_BASE_URL}/portfolios/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Failed to load portfolios');
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Persist to backend
     try {
-      const res = await fetch('http://localhost:8000/portfolios/', {
+      const res = await fetch(`${API_BASE_URL}/portfolios/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
     const coinId = btn.dataset.coin;
     try {
-      const res = await fetch(`http://localhost:8000/portfolios/${coinId}`, {
+      const res = await fetch(`${API_BASE_URL}/portfolios/${coinId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

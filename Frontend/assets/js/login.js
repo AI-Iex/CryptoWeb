@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:8000/auth/login', {
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, {
         email: emailField.value,
         password: passField.value
       });
@@ -151,14 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
   async function registerUser(username, email, password) {
     try {
       // 1. Registrar usuario
-      await axios.post('http://localhost:8000/auth/register', {
+      await axios.post(`${API_BASE_URL}/auth/register`, {
         username,
         email,
         password
       });
 
       // 2. Login automático
-      const loginResponse = await axios.post('http://localhost:8000/auth/login', {
+      const loginResponse = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password
       });

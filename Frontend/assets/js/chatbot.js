@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => loadChatHistory());
 
     // Envia la petición a la API
     try {
-      const res = await fetch('http://localhost:8000/chat/', {
+      const res = await fetch(`${API_BASE_URL}/chat/`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
