@@ -1,0 +1,28 @@
+name: Deploy Frontend to docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  copy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Copy Frontend to docs
+        run: |
+          rm -rf docs
+          cp -r Frontend docs
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git commit -m "🔄 Update docs from Frontend"
+          git push
+        continue-on-error: true  # Evita fallos si no hay cambios
