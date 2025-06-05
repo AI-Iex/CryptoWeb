@@ -30,16 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const loginError = createErrorElement('Login_btn');
   const registerError = createErrorElement('Register_btn');
+  const loginStatus = document.getElementById('loginStatus'); // Asegúrate de tener este div en HTML
 
   // ============================
   // CAMBIO ENTRE LOGIN Y REGISTRO
   // ============================
 
-  // Permite hacer clic en los textos LOGIN y REGISTRO para cambiar entre ellos
   document.querySelectorAll('.tab-switch span').forEach((tab, index) => {
     tab.addEventListener('click', () => {
       const checkbox = document.getElementById('reg-log');
-      checkbox.checked = index === 1; // 0 = Login, 1 = Registro
+      checkbox.checked = index === 1;
     });
   });
 
@@ -69,20 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    loginStatus.textContent = '⏳ Waiting for the server...';
+    loginStatus.style.display = 'block';
+
+    const serverReady = await waitForServer();
+    if (!serverReady) {
+      showError(loginError, '⚠️ Server did not respond after several attempts.');
+      loginStatus.style.display = 'none';
+      return;
+    }
+
+    loginStatus.textContent = '🔐 Logging in...';
+
     try {
       const res = await axios.post(`${API_BASE_URL}/auth/login`, {
         email: emailField.value,
         password: passField.value
       });
 
-      // Guardar el token con timestamp
       const tokenData = {
         data: res.data.access_token,
         timestamp: Date.now()
       };
       localStorage.setItem('access_token', JSON.stringify(tokenData));
 
-      // Redirigir al home
       window.location.href = '../index.html';
 
     } catch (err) {
@@ -94,6 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
       showError(loginError, msg);
       applyTempErrorStyle(emailField);
       applyTempErrorStyle(passField);
+    } finally {
+      loginStatus.style.display = 'none';
     }
   });
 
@@ -137,6 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    loginStatus.textContent = '⏳ Waiting for the server...';
+    loginStatus.style.display = 'block';
+
+    const serverReady = await waitForServer();
+    if (!serverReady) {
+      showError(registerError, '⚠️ Server did not respond after several attempts.');
+      loginStatus.style.display = 'none';
+      return;
+    }
+
+    loginStatus.textContent = '📝 Registering...';
+
     await registerUser(
       nameField.value.trim(),
       emailField.value,
@@ -150,34 +174,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function registerUser(username, email, password) {
     try {
-      // 1. Registrar usuario
       await axios.post(`${API_BASE_URL}/auth/register`, {
         username,
         email,
         password
       });
 
-      // 2. Login automático
       const loginResponse = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password
       });
 
-      // 3. Guardar token con timestamp
       const tokenData = {
         data: loginResponse.data.access_token,
         timestamp: Date.now()
       };
       localStorage.setItem('access_token', JSON.stringify(tokenData));
 
-      // 4. Redirigir
       window.location.href = '../index.html';
 
     } catch (error) {
       const errorMessage = error.response?.data?.detail || 'Server error';
-      showError(registerError, error.message);
+      showError(registerError, errorMessage);
       applyTempErrorStyle(document.getElementById('register_email'));
       applyTempErrorStyle(document.getElementById('register_password'));
+    } finally {
+      loginStatus.style.display = 'none';
     }
   }
 
@@ -190,21 +212,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loginPasswordInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevenir envío de formulario
-      loginButton.click(); // Ejecutar login
+      e.preventDefault();
+      loginButton.click();
     }
   });
-});
 
- // ============================
+  // ============================
   // Google login y Forgot password not implemented
   // ============================
-document.getElementById('forgot-password-link').addEventListener('click', function(event) {
-  event.preventDefault();
-  alert('Not implemented yet');
-});
 
-document.getElementById('google-signin-btn').addEventListener('click', function(event) {
+  document.getElementById('forgot-password-link').addEventListener('click', function (event) {
     event.preventDefault();
     alert('Not implemented yet');
   });
+
+  document.getElementById('google-signin-btn').addEventListener('click', function (event) {
+    event.preventDefault();
+    alert('Not implemented yet');
+  });
+
+});

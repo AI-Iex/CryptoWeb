@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from Backend.Api import auth, portfolios, users, roles, favorites, chatbot, news_routes
+from Backend.Api import auth, portfolios, users, roles, favorites, chatbot, news_routes, health
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
@@ -60,3 +60,4 @@ app.include_router(favorites.router)
 app.include_router(portfolios.router)
 app.include_router(chatbot.router)
 app.include_router(news_routes.router)
+app.include_router(health.router)

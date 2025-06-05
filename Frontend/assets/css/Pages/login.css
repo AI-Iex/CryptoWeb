@@ -319,3 +319,10 @@ h6 span {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+.login-status {
+  margin-top: 10px;
+  color: #007bff;
+  display: none;
+  font-weight: bold;
+}

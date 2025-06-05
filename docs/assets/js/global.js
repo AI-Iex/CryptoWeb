@@ -446,3 +446,17 @@ function checkAccessTokenValidity() {
     return false;
   }
 }
+
+// Función de espera a respuesta del servidor que aloja el backend
+const waitForServer = async (retries = 10, delay = 3000) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/health`, { timeout: 3000 });
+      if (res.status === 200 && res.data.status === 'ok') return true;
+    } catch (_) {
+      // Silenciar error
+    }
+    await new Promise(res => setTimeout(res, delay));
+  }
+  return false;
+};
