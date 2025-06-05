@@ -34,7 +34,7 @@
 
     --links-color: #1565C0;
 
-        --logo-url: url('../../../images/light-logo.gif');
+    --logo-url: url('../../../images/light-logo.gif');
 }
 
 #dark-theme {

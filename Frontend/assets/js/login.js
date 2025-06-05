@@ -24,13 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = document.getElementById(buttonId);
     const error = document.createElement('div');
     error.className = 'error-message-login';
+    error.style.display = 'none';
     button.parentNode.insertBefore(error, button.nextSibling);
     return error;
   };
 
   const loginError = createErrorElement('Login_btn');
   const registerError = createErrorElement('Register_btn');
-  const loginStatus = document.getElementById('loginStatus'); // Asegúrate de tener este div en HTML
+
+  // Referencias a los divs de estado que ya has colocado en el HTML
+  const loginStatus = document.getElementById('loginStatus');
+  const registerStatus = document.getElementById('registerStatus');
 
   // ============================
   // CAMBIO ENTRE LOGIN Y REGISTRO
@@ -39,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.tab-switch span').forEach((tab, index) => {
     tab.addEventListener('click', () => {
       const checkbox = document.getElementById('reg-log');
-      checkbox.checked = index === 1;
+      checkbox.checked = index === 1; // 0 = Login, 1 = Registro
     });
   });
 
@@ -50,6 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('Login_btn').addEventListener('click', async (e) => {
     e.preventDefault();
 
+    // Ocultar mensajes previos
+    loginError.style.display = 'none';
+    loginStatus.style.display = 'none';
+
     const emailField = document.getElementById('login_email');
     const passField = document.getElementById('login_password');
     let errors = [];
@@ -58,17 +66,16 @@ document.addEventListener('DOMContentLoaded', () => {
       applyTempErrorStyle(emailField);
       errors.push('Invalid Email Format');
     }
-
     if (!checkPasswordLength(passField.value)) {
       applyTempErrorStyle(passField);
       errors.push('The password must be at least 6 characters long');
     }
-
     if (errors.length > 0) {
       showError(loginError, errors.join(' • '));
       return;
     }
 
+    // Mostrar mensaje de espera
     loginStatus.textContent = '⏳ Waiting for the server...';
     loginStatus.style.display = 'block';
 
@@ -92,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp: Date.now()
       };
       localStorage.setItem('access_token', JSON.stringify(tokenData));
-
       window.location.href = '../index.html';
 
     } catch (err) {
@@ -100,10 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (err.response && err.response.status === 401) {
         msg = err.response.data.detail || msg;
       }
-
       showError(loginError, msg);
       applyTempErrorStyle(emailField);
       applyTempErrorStyle(passField);
+
     } finally {
       loginStatus.style.display = 'none';
     }
@@ -116,73 +122,63 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('Register_btn').addEventListener('click', async (e) => {
     e.preventDefault();
 
+    // Ocultar mensajes previos
+    registerError.style.display = 'none';
+    registerStatus.style.display = 'none';
+
     const nameField = document.getElementById('register_name');
     const emailField = document.getElementById('register_email');
     const passField = document.getElementById('register_password');
     const confirmField = document.getElementById('register_confirm');
-
     let errors = [];
 
     if (!nameField.value.trim()) {
       applyTempErrorStyle(nameField);
       errors.push('The name is mandatory');
     }
-
     if (!validateEmail(emailField.value)) {
       applyTempErrorStyle(emailField);
       errors.push('Invalid Email Format');
     }
-
     if (!checkPasswordLength(passField.value)) {
       applyTempErrorStyle(passField);
       errors.push('The password must be at least 6 characters long');
     }
-
     if (passField.value !== confirmField.value) {
       applyTempErrorStyle(passField);
       applyTempErrorStyle(confirmField);
       errors.push('Passwords do not match');
     }
-
     if (errors.length > 0) {
-      showError(registerError, errors.join('\n'));
+      showError(registerError, errors.join(' • '));
       return;
     }
 
-    loginStatus.textContent = '⏳ Waiting for the server...';
-    loginStatus.style.display = 'block';
+    // Mostrar mensaje de espera
+    registerStatus.textContent = '⏳ Waiting for the server...';
+    registerStatus.style.display = 'block';
 
     const serverReady = await waitForServer();
     if (!serverReady) {
       showError(registerError, '⚠️ Server did not respond after several attempts.');
-      loginStatus.style.display = 'none';
+      registerStatus.style.display = 'none';
       return;
     }
 
-    loginStatus.textContent = '📝 Registering...';
+    registerStatus.textContent = '📝 Registering...';
 
-    await registerUser(
-      nameField.value.trim(),
-      emailField.value,
-      passField.value
-    );
-  });
-
-  // ============================
-  // FUNCIÓN DE REGISTRO
-  // ============================
-
-  async function registerUser(username, email, password) {
     try {
+      // Llamada a registro
       await axios.post(`${API_BASE_URL}/auth/register`, {
-        username,
-        email,
-        password
+        username: nameField.value.trim(),
+        email: emailField.value,
+        password: passField.value
       });
 
+      // Login automático tras registro
       const loginResponse = await axios.post(`${API_BASE_URL}/auth/login`, {
-        email,
-        password
+        email: emailField.value,
+        password: passField.value
       });
 
       const tokenData = {
@@ -190,26 +186,25 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp: Date.now()
       };
       localStorage.setItem('access_token', JSON.stringify(tokenData));
-
       window.location.href = '../index.html';
 
     } catch (error) {
-      const errorMessage = error.response?.data?.detail || 'Server error';
-      showError(registerError, errorMessage);
-      applyTempErrorStyle(document.getElementById('register_email'));
-      applyTempErrorStyle(document.getElementById('register_password'));
+      let msg = error.response?.data?.detail || 'Server error';
+      showError(registerError, msg);
+      applyTempErrorStyle(emailField);
+      applyTempErrorStyle(passField);
+      applyTempErrorStyle(confirmField);
+
     } finally {
-      loginStatus.style.display = 'none';
+      registerStatus.style.display = 'none';
     }
-  }
+  });
 
   // ============================
   // ENTER PARA LOGIN
   // ============================
-
   const loginPasswordInput = document.getElementById('login_password');
   const loginButton = document.getElementById('Login_btn');
-
   loginPasswordInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -218,14 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================
-  // Google login y Forgot password not implemented
+  // Google login y Forgot password no implementados
   // ============================
-
   document.getElementById('forgot-password-link').addEventListener('click', function (event) {
     event.preventDefault();
     alert('Not implemented yet');
   });
-
   document.getElementById('google-signin-btn').addEventListener('click', function (event) {
     event.preventDefault();
     alert('Not implemented yet');
