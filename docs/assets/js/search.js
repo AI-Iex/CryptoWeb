@@ -103,7 +103,7 @@ function coinsResult(coins) {
         `;
         table.appendChild(row);
         row.onclick = () => {
-            window.location.href = `file:///C:/Users/Usuario/Documents/CryptoWeb/Frontend/pages/coin.html?coin=${coin.id}`;
+            window.location.href = `./coin.html?coin=${coin.id}`;
         };
     });
     coinsList.appendChild(table);
