@@ -433,7 +433,7 @@ function checkAccessTokenValidity() {
     if (hoursPassed > 23) {
       localStorage.removeItem('access_token');
       alert("Session expired. Log in again.");
-      window.location.href = '../Frontend/Pages/login.html';
+      window.location.href = '../Pages/login.html';
       return false;
     }
 
@@ -442,7 +442,7 @@ function checkAccessTokenValidity() {
   } catch (err) {
     // Token corrupto o malformado
     localStorage.removeItem('access_token');
-    window.location.href = '../Frontend/Pages/login.html';
+    window.location.href = '../Pages/login.html';
     return false;
   }
 }
