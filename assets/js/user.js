@@ -14,7 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let apiLimitReached  = false;
   let cachedPrices     = {};
 
-
+  // Función para evitar acceder al user.html sin el token
+  if(token == false)
+  {
+    window.location.href = "../index.html";
+  }
+  
   // Función para cambiar de pestaña
   function switchTab(selectedTab) {
       // Remover clase active de todos los tabs y contenidos
