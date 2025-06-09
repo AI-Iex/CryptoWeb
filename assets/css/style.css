@@ -13,6 +13,8 @@ html {
     scroll-behavior: smooth;
 }
 
+
+
 div::-webkit-scrollbar {
     height: 8px;
 }
@@ -106,6 +108,11 @@ body {
     flex-direction: column;
     gap: 40px;
     transition: all 0.5s ease;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 .error-message {
