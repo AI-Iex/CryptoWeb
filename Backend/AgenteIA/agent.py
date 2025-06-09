@@ -52,21 +52,21 @@ async def process_user_input(user_input: str, db: Session, current_user: User):
                     price = Decimal(entry.purchase_price)
                     qty = (invested / price).quantize(Decimal("0.000001"))
                     lines.append(
-                        f"- {coin}: invertido €{invested:.2f} cuando la criptomoneda valía €{price:.2f} "
-                        f"(cantidad: {qty} {coin.upper()})"
+                        f"- {coin}: invested €{invested:.2f} when the cryptocurrency was worth €{price:.2f} "
+                        f"(amount: {qty} {coin.upper()})"
                     )
-                mcp_result_str = "Portafolio actual:\n" + "\n".join(lines)
+                mcp_result_str = "Current portfolio:\n" + "\n".join(lines)
 
             case "get_favorites_by_user":
                 favoritos = favorite_service.get_favorites_by_user(db, user_id=current_user.id)
                 mcp_result = [fav.coin_id for fav in favoritos]
-                mcp_result_str = f"Favoritos: {', '.join(mcp_result)}"
+                mcp_result_str = f"Favorites: {', '.join(mcp_result)}"
 
             case _:
-                mcp_result_str = f"Resultado simulado para {tool_name} con input {input_data}"
+                mcp_result_str = f"Simulated result for {tool_name} with {input_data} input"
 
         # Añadir el resultado al historial y pedir respuesta final (o más herramientas)
-        messages.append({"role": "user", "content": f"El resultado fue: {mcp_result_str}. Devuelve una respuesta final o pide otra herramienta si lo necesitas."})
+        messages.append({"role": "user", "content": f"The result was: {mcp_result_str}. Return a final answer or ask for another tool if you need it."})
 
 
 
