@@ -13,11 +13,10 @@ CryptoWeb is a demonstration web app built to illustrate:
 
 - Clean, scalable backend design with FastAPI  
 - Vanilla HTML/CSS/JavaScript front-end  
-- Integration with multiple free crypto market and sentiment APIs  
-- User authentication & role-based access  
+- Integration with multiple free crypto market and sentiment APIs
+- User authentication & role-based access
+- AI ChatBot integrated with tools to help the user 
 - Interactive data visualizations  
-
-This project lives in a single repo as a monorepo—no separate frontend repo is needed.
 
 ---
 
@@ -113,6 +112,36 @@ CryptoWeb/
 4. Add your current portfolio and ask to the chatbot how to improve it.
 5. Explore API via Swagger UI.
 
+---
+
+## 💻 How to Run the Project Locally
+
+1. Edit the `global.js` file and update the following constant with your backend URL:
+```
+const API_BASE_URL = "http://localhost:8000";   # Replace with your actual backend URL
+```
+
+2. Create a .env file in the root of the backend project and add the following content:
+
+```
+# Security configuration
+SECRET_KEY = your_secret_key                     # Key for hash the passwords
+ALGORITHM = your_algorithm                       # Algorithm for hash the passwords
+
+# API Keys
+TOGETHER_API_KEY = your_together_api_key         # Key for the chatbot (together.ai)
+NEWS_API_KEY = your_news_api_key                 # Key for the news (newsapi.org)
+
+# Admin credentials
+ADMIN_USERNAME = admin_username                  # Default admin username 
+ADMIN_EMAIL = admin_email@example.com            # Default admin email 
+ADMIN_PASSWORD = your_admin_password             # Default admin password
+
+# Data Base
+DATABASE_URL = your_database_connection_string   # Your .db url
+```
+     
+> ℹ️ These variables are accessed in the Settings class located at Backend/Core/config.py.
 ---
 
 ## 🤝 Contributions
