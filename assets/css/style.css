@@ -115,6 +115,11 @@ body {
     padding: 0;
 }
 
+/* Solución clave para GitHub Pages */
+html, body {
+    height: 100%;
+}
+
 .error-message {
     display: none;
     color: red;
