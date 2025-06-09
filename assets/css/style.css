@@ -13,8 +13,6 @@ html {
     scroll-behavior: smooth;
 }
 
-
-
 div::-webkit-scrollbar {
     height: 8px;
 }
@@ -103,6 +101,8 @@ table thead tr:hover {
 }
 
 body {
+    margin: 0;
+    padding: 0;
     background: var(--background-color);
     display: flex;
     flex-direction: column;
@@ -110,12 +110,6 @@ body {
     transition: all 0.5s ease;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
-
-/* Solución clave para GitHub Pages */
 html, body {
     height: 100%;
 }
@@ -132,8 +126,8 @@ html, body {
 }
 
 .main {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
