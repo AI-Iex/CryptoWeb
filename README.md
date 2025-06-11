@@ -1,6 +1,6 @@
 # CryptoWeb
 
-[https://ai-iex.github.io/CryptoWeb/](https://ai-iex.github.io/CryptoWeb/)
+[https://ai-iex.github.io/CryptoWeb/](https://ai-iex.github.io/CryptoWeb/index.html)
 
 **CryptoWeb** is a portfolio project showcasing backend development, API integration and a lightweight SPA front-end without heavy frameworks. It provides real-time crypto tracking, user management, market sentiment analysis and a simple chatbot demo.
 
