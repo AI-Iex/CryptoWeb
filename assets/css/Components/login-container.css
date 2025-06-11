@@ -9,13 +9,13 @@
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  max-width: 400px;
   margin: 2rem auto;
   text-align: center;
   width: 49%;
   overflow-x: auto;
   position: relative;
   overflow: hidden;
+  margin: auto; /* Centrado vertical y horizontal */
 }
 
 /* Brillo adicional en el borde */
@@ -61,4 +61,11 @@
   margin-bottom: 1.5rem;
   font-weight: 500;
   color: var(--text-secondary);
+}
+
+#login-message-tabFavorites,
+#login-message-tab2,
+#login-message-tab3,
+#login-message-tab4{
+  min-height: 35vh; /* Altura mínima para empujar el footer */
 }

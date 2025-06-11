@@ -10,71 +10,83 @@ const tabDataLoaded = {
 };
 
 async function openTab(event, tabName) {
-  // Hide all contents and deactivate buttons
+  // Oculta todos los contenidos y desactiva botones
   document.querySelectorAll(".tab-content").forEach(c => c.style.display = 'none');
   document.querySelectorAll(".tab-button").forEach(b => b.classList.remove('active'));
   
-  // Leer el token
+  // Lee (y valida) el token
   const token = checkAccessTokenValidity();
 
-  // Show target
+  // Muestra la pestaña seleccionada y marca el botón activo
   document.getElementById(tabName).style.display = 'block';
   event.currentTarget.classList.add('active');
 
   if (!tabDataLoaded[tabName]) {
+    const loginWrapper = document.getElementById(`login-message-${tabName}`);
+
     switch (tabName) {
+
+      // Pestaña assets
       case 'tab1':
         await fetchAndDisplay(
           'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true',
           ['asset-list'], displayAssets, 'tab1', 'Crypto_Data'
         );
-        break;
 
+      break;
+
+      // Pestaña favoritos
       case 'tabFavorites':
         if (!token) {
-          // Show login prompt
-          document.getElementById('login-message').style.display = 'block';
+          loginWrapper.style.display = 'flex';
         } else {
-          document.getElementById('login-message').style.display = 'none';
+          loginWrapper.style.display = 'none';
           await fetchAndDisplayFavorites();
         }
-        break;
 
+      break;
+
+      // Pestaña exchanges
       case 'tab2':
         if (!token) {
-          document.getElementById('tab2-login-message').style.display = 'block';
+          loginWrapper.style.display = 'flex';
         } else {
-          document.getElementById('tab2-login-message').style.display = 'none';
+          loginWrapper.style.display = 'none';
           await fetchAndDisplay(
             'https://api.coingecko.com/api/v3/exchanges',
             ['exchange-list'], displayExchanges, 'tab2', 'Exchanges_Data'
           );
         }
-        break;
 
+      break;
+
+      // Pestaña categorias
       case 'tab3':
         if (!token) {
-          document.getElementById('tab3-login-message').style.display = 'block';
+          loginWrapper.style.display = 'flex';
         } else {
-          document.getElementById('tab3-login-message').style.display = 'none';
+          loginWrapper.style.display = 'none';
           await fetchAndDisplay(
             'https://api.coingecko.com/api/v3/coins/categories',
             ['category-list'], displayCategories, 'tab3', 'Categories_Data'
           );
         }
-        break;
 
+      break;
+
+      // Pestaña bitoin holders
       case 'tab4':
         if (!token) {
-          document.getElementById('tab4-login-message').style.display = 'block';
+          loginWrapper.style.display = 'flex';
         } else {
-          document.getElementById('tab4-login-message').style.display = 'none';
+          loginWrapper.style.display = 'none';
           await fetchAndDisplay(
             'https://api.coingecko.com/api/v3/companies/public_treasury/bitcoin',
             ['company-list'], displayCompanies, 'tab4', 'Companies_Data'
           );
         }
-        break;
+
+      break;
     }
     tabDataLoaded[tabName] = true;
   }
