@@ -433,16 +433,33 @@ function checkAccessTokenValidity() {
     if (hoursPassed > 23) {
       localStorage.removeItem('access_token');
       alert("Session expired. Log in again.");
-      window.location.href = '../Pages/login.html';
+      if (
+        window.location.pathname.endsWith('index.html') ||
+        window.location.pathname === '/' ||
+        window.location.pathname === '/index'
+      ) {
+        window.location.href = 'pages/login.html';
+      } else {
+        window.location.href = 'login.html';
+      }
       return false;
     }
 
     // Token válido, devolver token (por ejemplo, el access_token guardado en data)
     return tokenObj.data || tokenObj.access_token || tokenRaw;
+
   } catch (err) {
     // Token corrupto o malformado
     localStorage.removeItem('access_token');
-    window.location.href = '../Pages/login.html';
+    if (
+        window.location.pathname.endsWith('index.html') ||
+        window.location.pathname === '/' ||
+        window.location.pathname === '/index'
+      ) {
+        window.location.href = 'pages/login.html';
+      } else {
+        window.location.href = 'login.html';
+      }
     return false;
   }
 }
