@@ -1,17 +1,17 @@
 {
-    "version": "0.2.0",
+    "version": "1.0.0",
     "configurations": [
         {
             "name": "FastAPI",
             "type": "debugpy",
             "request": "launch",
-            "program": "C:/Users/Usuario/AppData/Local/Programs/Python/Python312/Scripts/uvicorn.exe",  // Cambié esto a uvicorn.exe
+            "program": "C:/Users/Usuario/AppData/Local/Programs/Python/Python312/Scripts/uvicorn.exe",
             "args": [
-                "Backend.main:app",  // 'main' es el nombre del archivo (sin la extensión .py), 'app' es la instancia de FastAPI
+                "Backend.main:app",
                 "--reload"
             ],
             "env": {
-                "PYTHONPATH": "C:/Users/Usuario/Documents/CryptoWeb"  // Directorio raíz del proyecto
+                "PYTHONPATH": "C:/Users/Usuario/Documents/CryptoWeb"
             },
             "jinja": true
         }
